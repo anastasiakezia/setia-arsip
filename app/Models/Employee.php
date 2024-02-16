@@ -14,6 +14,7 @@ class Employee extends Model
         'unit',
         'position'
     ];
+    // protected $guarded = [];
 
     protected $hidden = [];
 }

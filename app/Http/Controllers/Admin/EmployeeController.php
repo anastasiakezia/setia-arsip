@@ -20,7 +20,8 @@ class EmployeeController extends Controller
         // ]);
 
         if (request()->ajax()) {
-            $query = Employee::latest()->get();
+            // $query = Employee::latest()->get();
+            $query = Employee::all();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {

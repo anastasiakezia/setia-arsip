@@ -110,7 +110,7 @@ class LetterController extends Controller
 
         $departments = Department::all();
         return view('pages.admin.letter.incoming', [
-            'departments' => $departments
+            'departments' => $departments,
         ]);
     }
 
@@ -252,8 +252,11 @@ class LetterController extends Controller
                 ->rawColumns(['action', 'post_status'])
                 ->make();
         }
+        $departments = Department::all();
 
-        return view('pages.admin.letter.incoming');
+        return view('pages.admin.letter.incoming', [
+            'departments' => $departments
+        ]);
     }
     public function check_nomor_surat(Request $request)
     {
