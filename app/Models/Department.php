@@ -9,9 +9,15 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-    ];
+    // protected $fillable = [
+    //     'name',
+    // ];
+    protected $guarded = [];
 
     protected $hidden = [];
+
+    public function karyawan()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DinasLuarController;
 use App\Http\Controllers\Admin\DisposisiController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LetteroutController;
+use App\Http\Controllers\Admin\KaryawanController;
 use App\Models\Department;
 use App\Models\Employee;
 use PhpParser\Node\Expr\Print_;
@@ -82,4 +83,8 @@ Route::prefix('admin')
         Route::get('setting/password', [SettingController::class, 'change_password'])->name('change-password');
         Route::post('setting/upload-profile', [SettingController::class, 'upload_profile'])->name('profile-upload');
         Route::post('change-password', [SettingController::class, 'update_password'])->name('update.password');
+
+        //dropdown
+        Route::get('unit-dropdown/{id}', [DepartmentController::class, 'dropdown_department'])->name('unit.dropdown');
+        Route::get('karyawan-dropdown', [KaryawanController::class, 'dropdown_karyawan'])->name('karyawan.dropdown');
     });

@@ -87,8 +87,8 @@ Surat Masuk
         </div>
     </div>
     
-    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow:hidden;">
-        <div class="modal-dialog" role="document" style="max-width:45%">
+    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow-auto;">
+        <div class="modal-dialog" role="document" style="max-width:64%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createModal">Tambah Disposisi</h5>
@@ -96,10 +96,10 @@ Surat Masuk
                 </div>
                 <form action="<?php echo e(route('disposisi.store')); ?>" method="post" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
-                    <div class="modal-body">
+                    <div class="modal-body overflow-auto">
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id">Asal Disposisi</label>
+                                <label for="post_id"><b>Asal Disposisi</b></label>
                                 <select name="letter_type" class="form-control" required>
                                     <option value="Surat Masuk" <?php echo e((old('letter_type') == 'Surat Masuk')? 'selected':''); ?>>Surat Masuk</option>
                                 </select>
@@ -108,7 +108,7 @@ Surat Masuk
                         <div class="mb-3">
                             <div class="col-md-12">
                                 
-                                <label for="post_id">Unit</label>
+                                <label for="post_id"><b>Asal Unit</b></label>
                                 <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -131,11 +131,36 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="margin-bottom:30px">
                                 
-                                <label for="post_id">Tujuan</label>
-                                <select class="form-control" name="" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
-                                    <option>== Tujuan Disposisi ==</option>
+                                <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
+                                <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
+                                    <option>== Pilih Direksi / Karyawan ==</option>
+                                        <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($employee->id); ?>" <?php echo e((old('department_id') == $employee->id)? 'selected':''); ?>><?php echo e($employee->employee_name); ?> - <?php echo e($employee->position); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                                <?php $__errorArgs = ['department_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback">
+                                    <?php echo e($message); ?>
+
+                                </div>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div><hr style="border-top: 7px solid; width:90%; margin: 0 auto; color:blue">
+                        <div class="mb-3">
+                            <div class="col-md-12" style="margin-top: 20px">
+                                
+                                <label for="post_id"><b>Tujuan Unit</b></label>
+                                <select class="form-control" name="id_unit" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
+                                    <option>== Tujuan Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -144,9 +169,33 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id">Isi Disposisi</label>
                                 
-                                <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi.." required style="height: 100px; width:540px;"></textarea>
+                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
+                                <select class="form-control" name="department_id" id="direksi_tujuan" data-placeholder="pilih unit" required>
+                                    <option>---Pilih Direksi / Karyawan---</option>
+                                    
+                                        
+                                </select>
+                                <?php $__errorArgs = ['department_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback">
+                                    <?php echo e($message); ?>
+
+                                </div>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="col-md-12">
+                                <label for="post_id"><b>Isi Disposisi</b></label>
+                                
+                                <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi.." required style="height: 100px; width:770px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -210,6 +259,60 @@ unset($__errorArgs, $__bag); ?>
             },
         ]
     });
+$(document).ready(function(){
+    $('#tujuan_disposisi').change(function() {
+        var id = $(this).val();
+        // if (id) {
+            $.ajax({
+                type: "GET",
+                // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                url:'<?php echo e(route('karyawan.dropdown')); ?>',
+                data:{id:id},
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response) {
+                        $("#direksi_tujuan").empty();
+                        $("#direksi_tujuan").append('<option>---Pilih Direksi / Karyawan---</option>');
+                        $.each(response, function(id, value) {
+                            $("#direksi_tujuan").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                        });
+                    } else {
+                        $("#direksi_tujuan").empty();
+                    }
+                }
+            });
+        // } else {
+        //     $("#direksi_tujuan").empty();
+        // }
+    });
+});
+    
+
+//    $('#kecamatan').change(function(){
+//     var kecID = $(this).val();    
+//     if(kecID){
+//         $.ajax({
+//            type:"GET",
+//            url:"getdesa?kecID="+kecID,
+//            dataType: 'JSON',
+//            success:function(res){               
+//             if(res){
+//                 $("#direksi_tujuan").empty();
+//                 $("#direksi_tujuan").append('<option>---Pilih Desa---</option>');
+//                 $.each(res,function(nama,kode){
+//                     $("#direksi_tujuan").append('<option value="'+kode+'">'+nama+'</option>');
+//                 });
+//             }else{
+//                $("#direksi_tujuan").empty();
+//             }
+//            }
+//         });
+//     }else{
+//         $("#direksi_tujuan").empty();
+//     }      
+//    });
+    
+    
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\setia-arsip\resources\views/pages/admin/letter/incoming.blade.php ENDPATH**/ ?>

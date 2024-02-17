@@ -98,4 +98,10 @@ class DepartmentController extends Controller
             ->route('department.index')
             ->with('success', 'Sukses! 1 Data Berhasil Dihapus');
     }
+    public function dropdown_department(Request $request)
+    {
+        $department = department::findOrFail($request->id);
+        $karyawan = $department->karyawan()->pluck('nama', 'id');
+        return response()->json($karyawan);
+    }
 }

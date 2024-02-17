@@ -86,8 +86,8 @@ Surat Masuk
         </div>
     </div>
     {{-- Modal Add --}}
-    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow:hidden;">
-        <div class="modal-dialog" role="document" style="max-width:45%">
+    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow-auto;">
+        <div class="modal-dialog" role="document" style="max-width:64%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createModal">Tambah Disposisi</h5>
@@ -95,10 +95,10 @@ Surat Masuk
                 </div>
                 <form action="{{ route('disposisi.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-body">
+                    <div class="modal-body overflow-auto">
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id">Asal Disposisi</label>
+                                <label for="post_id"><b>Asal Disposisi</b></label>
                                 <select name="letter_type" class="form-control" required>
                                     <option value="Surat Masuk" {{ (old('letter_type') == 'Surat Masuk')? 'selected':''; }}>Surat Masuk</option>
                                 </select>
@@ -108,7 +108,7 @@ Surat Masuk
                             <div class="col-md-12">
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
-                                <label for="post_id">Unit</label>
+                                <label for="post_id"><b>Asal Unit</b></label>
                                 <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         @foreach ($departments as $department)
@@ -123,12 +123,30 @@ Surat Masuk
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="margin-bottom:30px">
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
-                                <label for="post_id">Tujuan</label>
-                                <select class="form-control" name="" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
-                                    <option>== Tujuan Disposisi ==</option>
+                                <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
+                                <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
+                                    <option>== Pilih Direksi / Karyawan ==</option>
+                                        @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}" {{ (old('department_id') == $employee->id)? 'selected':''; }}>{{ $employee->employee_name }} - {{ $employee->position }}</option>
+                                        @endforeach
+                                </select>
+                                @error('department_id')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div><hr style="border-top: 7px solid; width:90%; margin: 0 auto; color:blue">
+                        <div class="mb-3">
+                            <div class="col-md-12" style="margin-top: 20px">
+                                {{-- <label for="post_id">Tujuan Disposisi</label>
+                                <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
+                                <label for="post_id"><b>Tujuan Unit</b></label>
+                                <select class="form-control" name="id_unit" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
+                                    <option>== Tujuan Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
                                         @endforeach
@@ -137,9 +155,28 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id">Isi Disposisi</label>
+                                {{-- <label for="post_id">Tujuan Disposisi</label>
+                                <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
+                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
+                                <select class="form-control" name="department_id" id="direksi_tujuan" data-placeholder="pilih unit" required>
+                                    <option>---Pilih Direksi / Karyawan---</option>
+                                    {{-- <option>== Pilih Direksi / Karyawan ==</option> --}}
+                                        {{-- @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
+                                        @endforeach --}}
+                                </select>
+                                @error('department_id')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="col-md-12">
+                                <label for="post_id"><b>Isi Disposisi</b></label>
                                 {{-- <textarea id="disposisi_desc" class="disposisi-desc" cols="50" rows ="4" name="disposisi_desc" placeholder="Masukan isi Disposisi.." class="form-control" required style="border: 1px solid #cccccc; border-radius:5px;"></textarea> --}}
-                                <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi.." required style="height: 100px; width:540px;"></textarea>
+                                <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi.." required style="height: 100px; width:770px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -203,5 +240,59 @@ Surat Masuk
             },
         ]
     });
+$(document).ready(function(){
+    $('#tujuan_disposisi').change(function() {
+        var id = $(this).val();
+        // if (id) {
+            $.ajax({
+                type: "GET",
+                // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                url:'{{ route('karyawan.dropdown') }}',
+                data:{id:id},
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response) {
+                        $("#direksi_tujuan").empty();
+                        $("#direksi_tujuan").append('<option>---Pilih Direksi / Karyawan---</option>');
+                        $.each(response, function(id, value) {
+                            $("#direksi_tujuan").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                        });
+                    } else {
+                        $("#direksi_tujuan").empty();
+                    }
+                }
+            });
+        // } else {
+        //     $("#direksi_tujuan").empty();
+        // }
+    });
+});
+    
+
+//    $('#kecamatan').change(function(){
+//     var kecID = $(this).val();    
+//     if(kecID){
+//         $.ajax({
+//            type:"GET",
+//            url:"getdesa?kecID="+kecID,
+//            dataType: 'JSON',
+//            success:function(res){               
+//             if(res){
+//                 $("#direksi_tujuan").empty();
+//                 $("#direksi_tujuan").append('<option>---Pilih Desa---</option>');
+//                 $.each(res,function(nama,kode){
+//                     $("#direksi_tujuan").append('<option value="'+kode+'">'+nama+'</option>');
+//                 });
+//             }else{
+//                $("#direksi_tujuan").empty();
+//             }
+//            }
+//         });
+//     }else{
+//         $("#direksi_tujuan").empty();
+//     }      
+//    });
+    
+    
 </script>
 @endpush

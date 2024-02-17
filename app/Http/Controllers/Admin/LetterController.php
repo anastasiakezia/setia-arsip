@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Letter;
 use App\Models\Sender;
@@ -109,8 +110,10 @@ class LetterController extends Controller
         }
 
         $departments = Department::all();
+        $employees = Employee::all();
         return view('pages.admin.letter.incoming', [
             'departments' => $departments,
+            'employees' => $employees
         ]);
     }
 
