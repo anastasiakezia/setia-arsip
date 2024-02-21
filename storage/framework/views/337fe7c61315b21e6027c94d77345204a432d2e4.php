@@ -101,7 +101,7 @@ Direksi dan Karyawan
 <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <?php
     $id = $item->id;
-    $employee_name = $item->employee_name;
+    $nama = $item->nama;
     $unit = $item->unit;
     $position = $item->position;
 ?>
@@ -135,6 +135,7 @@ Direksi dan Karyawan
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('addon-script'); ?>
+
 <script>
     var datatable = $('#crudTable').DataTable({
         processing: true,
@@ -146,11 +147,11 @@ Direksi dan Karyawan
         columns: [{
                 "data": 'DT_RowIndex',
                 orderable: false,
-                searchable: false
+                searchable: false,
             },
             {
-                data: 'employee_name',
-                name: 'employee_name'
+                data: 'nama',
+                name: 'nama'
             },
             {
                 data: 'unit',

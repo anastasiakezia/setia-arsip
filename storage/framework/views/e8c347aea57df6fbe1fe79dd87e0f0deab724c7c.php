@@ -35,7 +35,8 @@
                         <?php endif; ?>
                         <!-- Login form-->
                         <form action="/login" method="post" class="container">
-                            <?php echo csrf_field(); ?>
+                            <?php echo e(csrf_field()); ?>
+
                             <!-- Form Group (email address)-->
                             <div class="mb-3" style="margin-top:-15px">
                                 <label class="small mb-1" for="email"><b>Email</b></label>

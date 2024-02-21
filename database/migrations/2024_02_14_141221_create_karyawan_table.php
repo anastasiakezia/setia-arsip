@@ -18,6 +18,7 @@ class CreateKaryawanTable extends Migration
             $table->string('nama', 100);
             $table->unsignedBigInteger('departments_id');
             $table->string('position', 200);
+            $table->string('unit', 200);
             $table->timestamps();
 
             $table->foreign('departments_id')->references('id')->on('departments')->onDelete('Restrict')->onUpdate('Cascade');

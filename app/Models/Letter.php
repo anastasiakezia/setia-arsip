@@ -18,6 +18,7 @@ class Letter extends Model
         // 'agenda_no',
         'regarding',
         'disposisi',
+        'jenis_pengirim',
         'sender_name',
         'department_id',
         // 'sender_id',

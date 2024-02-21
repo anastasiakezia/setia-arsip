@@ -100,7 +100,7 @@ Direksi dan Karyawan
 @foreach ($employees as $item)
 @php
     $id = $item->id;
-    $employee_name = $item->employee_name;
+    $nama = $item->nama;
     $unit = $item->unit;
     $position = $item->position;
 @endphp
@@ -134,6 +134,9 @@ Direksi dan Karyawan
 @endsection
 
 @push('addon-script')
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load library DataTables -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> --}}
 <script>
     var datatable = $('#crudTable').DataTable({
         processing: true,
@@ -145,11 +148,11 @@ Direksi dan Karyawan
         columns: [{
                 "data": 'DT_RowIndex',
                 orderable: false,
-                searchable: false
+                searchable: false,
             },
             {
-                data: 'employee_name',
-                name: 'employee_name'
+                data: 'nama',
+                name: 'nama'
             },
             {
                 data: 'unit',

@@ -9,10 +9,10 @@ class Karyawan extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table = 'karyawan';
+    protected $table = 'employees';
 
     public function departments()
     {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
+        return $this->belongsTo(Department::class, 'departments_id', 'id');
     }
 }

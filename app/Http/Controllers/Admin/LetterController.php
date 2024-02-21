@@ -256,9 +256,11 @@ class LetterController extends Controller
                 ->make();
         }
         $departments = Department::all();
+        $employees = Employee::all();
 
         return view('pages.admin.letter.incoming', [
-            'departments' => $departments
+            'departments' => $departments,
+            'employees' => $employees
         ]);
     }
     public function check_nomor_surat(Request $request)

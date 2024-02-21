@@ -99,7 +99,7 @@ Surat Masuk
                     <div class="modal-body overflow-auto">
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Asal Disposisi</b></label>
+                                <label for="post_id"><b>Jenis Surat</b></label>
                                 <select name="letter_type" class="form-control" required>
                                     <option value="Surat Masuk" <?php echo e((old('letter_type') == 'Surat Masuk')? 'selected':''); ?>>Surat Masuk</option>
                                 </select>
@@ -109,7 +109,7 @@ Surat Masuk
                             <div class="col-md-12">
                                 
                                 <label for="post_id"><b>Asal Unit</b></label>
-                                <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="department_id" id="asal_unit" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
@@ -134,11 +134,9 @@ unset($__errorArgs, $__bag); ?>
                             <div class="col-md-12" style="margin-bottom:30px">
                                 
                                 <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
-                                <select class="form-control" name="department_id" id="unit" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="department_id" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>
                                     <option>== Pilih Direksi / Karyawan ==</option>
-                                        <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($employee->id); ?>" <?php echo e((old('department_id') == $employee->id)? 'selected':''); ?>><?php echo e($employee->employee_name); ?> - <?php echo e($employee->position); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        
                                 </select>
                                 <?php $__errorArgs = ['department_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -154,7 +152,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
-                        </div><hr style="border-top: 7px solid; width:90%; margin: 0 auto; color:blue">
+                        </div><hr style="border-top: 2px dotted black; width:90%; margin: 0 auto;">
                         <div class="mb-3">
                             <div class="col-md-12" style="margin-top: 20px">
                                 
@@ -287,7 +285,34 @@ $(document).ready(function(){
     });
 });
     
-
+// yang buat asal direksi dan unit (bagian disposisi)
+$(document).ready(function(){
+    $('#asal_unit').change(function() {
+        var id = $(this).val();
+        // if (id) {
+            $.ajax({
+                type: "GET",
+                // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                url:'<?php echo e(route('karyawan.dropdown')); ?>',
+                data:{id:id},
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response) {
+                        $("#asal_direksi_karyawan").empty();
+                        $("#asal_direksi_karyawan").append('<option>---Pilih Direksi / Karyawan---</option>');
+                        $.each(response, function(id, value) {
+                            $("#asal_direksi_karyawan").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                        });
+                    } else {
+                        $("#direksi_tujasal_direksi_karyawanuan").empty();
+                    }
+                }
+            });
+        // } else {
+        //     $("#direksi_tujuan").empty();
+        // }
+    });
+});
 //    $('#kecamatan').change(function(){
 //     var kecID = $(this).val();    
 //     if(kecID){

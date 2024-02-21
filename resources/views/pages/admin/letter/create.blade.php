@@ -148,36 +148,26 @@ Tambah Surat
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Tujuan Disposisi <b style="color: red">*</b></label>
-                                <div class="col-sm-9 row" style="float: right;">
-                                    <div class="col-sm-4">
-                                        <input type="checkbox" value="Direktur" name="disposisi[]"> Direktur <br>
-                                        <input type="checkbox" value="Wadir Medis" name="disposisi[]"> Wadir Medis <br>
-                                        <input type="checkbox" value="Wadir Keuangan" name="disposisi[]"> Wadir Keuangan <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Kepala Unit" name="disposisi[]"> Kepala Unit <br>
-                                        <input type="checkbox" value="-" name="disposisi[]"> -
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Kepala Bagian" name="disposisi[]"> Kepala Bagian <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                        <input type="checkbox" value="Wadir" name="disposisi[]"> Wadir <br>
-                                    </div>
+                                <label for="jenis_pengirim" class="col-sm-3 col-form-label">Jenis Pengirim <b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="jenis_pengirim" id="jenis_pengirim" class="form-control" required>
+                                        <option value='' selected disabled>Pilih Asal Surat</option>
+                                        <option value="Eksternal">Eksternal</option>
+                                        <option value="Internal">Internal</option>
+                                    <select>                                                                      
+                                    {{-- <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Isi Pengirim Surat.." required> --}}
                                 </div>
-                                @error('disposisi')
+                                @error('jenis_pengirim')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-3 row">
-                                <label for="sender_name" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
+                            {{-- jika pilih eksternal  --}}
+                            <div class="mb-3 row" id="eksternal_fields" style="display: none">
+                                <label for="pengirim_surat" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Isi Pengirim Surat.." required>
+                                    <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Nama / Instansi Pengirim.." required>
                                 </div>
                                 @error('sender_name')
                                 <div class="invalid-feedback">
@@ -185,10 +175,11 @@ Tambah Surat
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-3 row">
-                                <label for="department_id" class="col-sm-3 col-form-label">Unit <b style="color: red">*</b></label>
+                            {{-- jika pilih internal  --}}
+                            <div class="mb-3 row" id="pengirim_internal_unit" style="display: none">
+                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="department_id" class="form-control" required>
+                                    <select name="" id="unit_pengirim" class="form-control" required>
                                         <option value="">Pilih Unit...</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
@@ -196,6 +187,56 @@ Tambah Surat
                                     </select>
                                 </div>
                                 @error('department_id')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 row" id ="pengirim_internal_karyawandireksi" style="display: none">
+                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="disposisi" id="karyawandireksi_pengirim" class="form-control" required>
+                                        <option selected disabled>..Surat ditujukan ke...</option>
+                                    </select>
+                                </div>
+                                @error('disposisi')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div>
+                            
+                            {{-- <div class="mb-3 row" id="after_jenis_surat_filled">
+                                @error('sender_name')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div> --}}
+                            <div class="mb-3 row">
+                                <label for="disposisi" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="department_id" id="unit_id" class="form-control" required>
+                                        <option value="">Pilih Unit...</option>
+                                        @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('department_id')
+                                <div class="invalid-feedback">
+                                    {{ $message; }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="disposisi" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="disposisi" id="kepada" class="form-control" required>
+                                        <option selected disabled>..Surat ditujukan ke...</option>
+                                    </select>
+                                </div>
+                                @error('disposisi')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -255,6 +296,83 @@ Tambah Surat
 <script>
     $(".selectx").select2({
         theme: "bootstrap-5"
+    });
+
+    $(document).ready(function(){
+        $('#unit_id').change(function() {
+            var id = $(this).val();
+            // if (id) {
+                $.ajax({
+                    type: "GET",
+                    // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                    url:'{{ route('karyawan.dropdown') }}',
+                    data:{id:id},
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response) {
+                            $("#kepada").empty();
+                            $("#kepada").append('<option>...Surat ditujukan ke...</option>');
+                            $.each(response, function(id, value) {
+                                $("#kepada").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                            });
+                        } else {
+                            $("#kepada").empty();
+                        }
+                    }
+            });
+        });
+    });
+
+    // bagian pengirim surat
+    // $(document).ready(function(){
+    //     $('#jenis_pengirim').change(function() {
+    //         var point = $(this).val();
+    //         if(point == "Eksternal"){
+    //             $('#after_jenis_surat_filled').html(
+    //                 '<div class="mb-3 row"><label for="sender_name" class="col-sm-3 col-form-label">Pengirim Surat<b style="color: red">*</b></label><div class="col-sm-9"><input input="text" class="form-control"></input></div></div>'
+    //             );
+    //         }else if(point == "Internal"){
+    //             $('#after_jenis_surat_filled').html('<div class="col-sm-9"><select><option value=1>satu</option></select></div>');
+    //         }
+    //     });
+    // });
+
+    // bagian pengirim surat
+    $(document).ready(function(){
+        $('#jenis_pengirim').change(function() {
+            var point = $(this).val();
+            if(point == "Eksternal"){
+                $('#eksternal_fields').show();
+                $('#pengirim_internal_unit').hide();
+                $('#pengirim_internal_karyawandireksi').hide();
+            }else {
+                $('#eksternal_fields').hide();
+                $('#pengirim_internal_unit').show();
+                $('#pengirim_internal_karyawandireksi').show();
+                $('#unit_pengirim').change(function(){
+                    var id = $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                        url:'{{ route('karyawan.dropdown') }}',
+                        data:{id:id},
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response) {
+                                $("#karyawandireksi_pengirim").empty();
+                                $("#karyawandireksi_pengirim").append('<option>...Surat ditujukan ke...</option>');
+                                $.each(response, function(id, value) {
+                                    $("#karyawandireksi_pengirim").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                                });
+                            } else {
+                                $("#karyawandireksi_pengirim").empty();
+                            }
+                        }
+                    });
+                })
+            }
+
+        });
     });
 </script>
 @endpush
