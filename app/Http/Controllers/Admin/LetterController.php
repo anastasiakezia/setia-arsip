@@ -38,16 +38,23 @@ class LetterController extends Controller
             'letter_no' => 'required|unique:letters',
             'letter_date' => 'required',
             'letter_char' => 'required',
-            'sender_name' => 'required',
-            // 'date_received' => 'required',
-            // 'agenda_no' => 'required',
+            'sender_type' => 'required',
+            'letter_name' => 'required',
+            // 'sender_name_external',
+            // 'sender_name_internal',
             'regarding' => 'required',
-            'disposisi' => 'required',
-            'department_id' => 'required',
+            // 'department_id' => 'required',
             // 'sender_id' => 'required',
+            'sender_name' => 'required',
+            'pengirim_unit_internal' => '',
+            'employees_id_destination' => 'required',
             'letter_file' => 'required|mimes:pdf|file',
             'letter_type' => 'required',
         ]);
+        // $validateData['sender_name_external'] = $request->input('sender_name_external');
+        // $validateData['sender_name'] = $request->input('sender_name');
+        // $validateData['pengirim_unit_internal'] = $request->input('pengirim_unit_internal');
+        // $validateData['employees_id_destination'] = $request->input('employees_id_destination');
 
         if ($request->input('disposisi')) {
             $validatedData['disposisi'] = implode(',', $request->disposisi);
@@ -58,8 +65,9 @@ class LetterController extends Controller
         if ($validatedData['letter_type'] == 'Surat Masuk') {
             $redirect = 'surat-masuk';
         }
-        $validatedData['status_condition'] = $request->input('status_condition', 0);
+        // $validatedData['status_condition'] = $request->input('status_condition', 0);
         Letter::create($validatedData);
+        // Employee::create($validateData);
 
         return redirect()
             ->route($redirect)
@@ -69,12 +77,21 @@ class LetterController extends Controller
     public function incoming_mail()
     {
         if (request()->ajax()) {
-            // $query = Letter::with(['department', 'sender'])->where('letter_type', 'Surat Masuk')->latest()->get();
-            $query = Letter::with(['department', 'sender'])
-                ->where('letter_type', 'Surat Masuk')
-                ->where('status_condition', 0)
-                ->latest()
+            // $query = Letter::with(['department', 'sender', 'employee'])
+            //     ->where('letter_type', 'Surat Masuk')
+            //     ->where('status_condition', 0)
+            //     ->latest()
+            //     ->get();
+            // $query = Letter::with(['employee', 'employee.department'])
+            //     ->where('letter_type', 'Surat Masuk')
+            //     ->where('status_condition', 0)
+            //     ->latest()
+            //     ->get();
+            $query = Letter::where('letter_type', 'Surat Masuk')
+                ->Where('status_condition', 0)
+                ->with('employee', 'employee.department')
                 ->get();
+
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -110,11 +127,29 @@ class LetterController extends Controller
         }
 
         $departments = Department::all();
-        $employees = Employee::all();
+        // $employees = Employee::all();
+        // $letters = Letter::with('department')->get();
+
+        // $letters = Letter::with(['employee', 'employee.department'])
+        //     ->where('letter_type', 'Surat Masuk')
+        //     ->Where('status_condition', 0)
+        //     ->latest()
+        //     ->get();
+
+        // $letters = Letter::where('letter_type', 'Surat Masuk')
+        //     ->Where('status_condition', 0)
+        //     ->with(['employee', 'employee.department'])
+        //     ->get();
+        $letters = Letter::with(['employee', 'employee.department'])
+            ->where('letter_type', 'Surat Masuk')
+            ->Where('status_condition', 0)
+            ->get();
+
         return view('pages.admin.letter.incoming', [
             'departments' => $departments,
-            'employees' => $employees
+            'letters' => $letters
         ]);
+        // return response()->json(['letters' => $letters]);
     }
 
     public function show($id)
@@ -217,25 +252,20 @@ class LetterController extends Controller
         return view('pages.admin.letter.cetak-disposisi');
     }
 
-    // public function checkEmail(Request $request){
-    //     $letter_number = $request->input('letter_no');
-    //     $isExists = Letter::where('letter_no',$letter_number)->first();
-    //     if($isExists){
-    //         return response()->json(array("exists" => true));
-    //     }else{
-    //         return response()->json(array("exists" => false));
-    //     }
-    // }
-
     public function incoming_mail_delete()
     {
         if (request()->ajax()) {
             // $query = Letter::with(['department', 'sender'])->where('letter_type', 'Surat Masuk')->latest()->get();
-            $query = Letter::with(['department', 'sender'])
-                ->where('letter_type', 'Surat Masuk')
-                ->where('status_condition', 1)
-                ->latest()
+            // $query = Letter::with(['department', 'sender'])
+            //     ->where('letter_type', 'Surat Masuk')
+            //     ->where('status_condition', 1)
+            //     ->latest()
+            //     ->get();
+            $query = Letter::where('letter_type', 'Surat Masuk')
+                ->Where('status_condition', 1)
+                ->with(['employee', 'employee.department'])
                 ->get();
+
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
                     return '

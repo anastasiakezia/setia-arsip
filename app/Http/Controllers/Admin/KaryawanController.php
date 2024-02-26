@@ -42,10 +42,10 @@ class KaryawanController extends Controller
         // $departments = Karyawan::with('departments')->get();
         return response()->json(['employees' => $employees]);
 
-        // return view('pages.admin.employee.index', [
-        //     'employees' => $employees,
-        //     // 'departments' => $departments
-        // ]);
+        return view('pages.admin.employee.index', [
+            'employees' => $employees,
+            // 'departments' => $departments
+        ]);
     }
     public function dropdown_karyawan(Request $request)
     {

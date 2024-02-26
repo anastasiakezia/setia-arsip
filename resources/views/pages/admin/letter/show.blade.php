@@ -53,6 +53,10 @@ Detail Surat
                                         <td>{{ $item->letter_char}}</td>
                                     </tr>
                                     <tr>
+                                        <th>Asal Pengirim</th>
+                                        <td>{{ $item->sender_type}}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Perihal</th>
                                         <td>{{ $item->regarding }}</td>
                                     </tr>
@@ -62,11 +66,11 @@ Detail Surat
                                     </tr>
                                     <tr>
                                         <th>Pengirim Surat</th>
-                                        <td>{{ $item->sender_name}}</td>
+                                        <td>{{ $item->sender_name_external}}</td>
                                     </tr>
                                     <tr>
                                         <th>Departemen</th>
-                                        <td>{{ $item->department->name }}</td>
+                                        {{-- <td>{{ $item->department->name }}</td> --}}
                                     </tr>
                                 </tbody>
                             </table>

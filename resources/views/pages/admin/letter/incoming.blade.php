@@ -72,8 +72,12 @@ Surat Masuk
                                         <th>No. Surat</th>
                                         <th>Sifat Surat</th>
                                         <th>Perihal</th>
+                                        <th>Jenis Pengirim</th>
                                         <th>Pengirim</th>
-                                        <th>Disposisi</th>                         
+                                        {{-- <th>Nama Pengirim</th> --}}
+                                        {{-- <th>Direksi/Karyawan Pengirim</th> --}}
+                                        {{-- <th>Unit Tujuan</th> --}}
+                                        <th>Direksi / Karyawan Tujuan</th>                         
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -199,6 +203,8 @@ Surat Masuk
         ordering: true,
         ajax: {
             url: '{!! url()->current() !!}',
+            // type:'GET',
+            // dataType:'json'
         },
         columns: [{
                 "data": 'DT_RowIndex',
@@ -224,13 +230,30 @@ Surat Masuk
                 name: 'regarding'
             },
             {
-                data: 'sender_name',
-                name: 'sender_name'
+                data: 'sender_type',
+                name: 'sender_type'
             },
             {
-                data: 'disposisi',
-                name: 'disposisi'
+                data: 'sender_name',
+                // data: 'sender_internal',
+                name: 'sender_name'
             },
+            // {
+            //     data: 'unit_sender_internal',
+            //     name: 'unit_sender_internal',
+            // },
+            // {
+            //     data: 'sender_name_internal',
+            //     name:'sender_name_internal'
+            // },
+            {
+                data: 'employee.nama',
+                name: 'employee.nama'
+            },
+            // {
+            //     data:'employee.position',
+            //     name: 'employee.position'
+            // },
             {
                 data: 'action',
                 name: 'action',
@@ -238,8 +261,10 @@ Surat Masuk
                 searcable: true,
                 width: '15%'
             },
+            
         ]
     });
+    
 $(document).ready(function(){
     $('#tujuan_disposisi').change(function() {
         var id = $(this).val();
@@ -262,9 +287,6 @@ $(document).ready(function(){
                     }
                 }
             });
-        // } else {
-        //     $("#direksi_tujuan").empty();
-        // }
     });
 });
     
@@ -296,30 +318,5 @@ $(document).ready(function(){
         // }
     });
 });
-//    $('#kecamatan').change(function(){
-//     var kecID = $(this).val();    
-//     if(kecID){
-//         $.ajax({
-//            type:"GET",
-//            url:"getdesa?kecID="+kecID,
-//            dataType: 'JSON',
-//            success:function(res){               
-//             if(res){
-//                 $("#direksi_tujuan").empty();
-//                 $("#direksi_tujuan").append('<option>---Pilih Desa---</option>');
-//                 $.each(res,function(nama,kode){
-//                     $("#direksi_tujuan").append('<option value="'+kode+'">'+nama+'</option>');
-//                 });
-//             }else{
-//                $("#direksi_tujuan").empty();
-//             }
-//            }
-//         });
-//     }else{
-//         $("#direksi_tujuan").empty();
-//     }      
-//    });
-    
-    
 </script>
 @endpush

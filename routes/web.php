@@ -54,6 +54,7 @@ Route::prefix('admin')
         Route::get('letter/surat-masuk/{id}', [LetterController::class, 'delete_letter'])->name('deletes-surat');
         Route::get('letter/surat-masuk/surat-terhapus/{status_condition}', [LetterController::class, 'incoming_mail_delete'])->name('surat-masuk-terhapus');
         Route::get('letter/check_no_surat', [LetterController::class, 'check_nomor_surat']);
+        Route::get('letter/show', [LetterController::class, 'incoming_mail']);
         // letterout / surat keluar
         Route::resource('/letterout', LetteroutController::class, ['except' => ['show']]);
         Route::get('letterout/surat-keluar', [LetteroutController::class, 'outgoing_mail'])->name('surat-keluar');

@@ -9,12 +9,22 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'employee_name',
-        'unit',
-        'position'
-    ];
-    // protected $guarded = [];
+    // protected $fillable = [
+    //     'employee_name',
+    //     'unit',
+    //     'position'
+    // ];
 
-    protected $hidden = [];
+    protected $guarded = [];
+
+    protected $hidden = ['created_at', 'updated_at'];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'departments_id', 'id');
+    }
+    public function letter()
+    {
+        return $this->hasMany(Letter::class);
+    }
 }

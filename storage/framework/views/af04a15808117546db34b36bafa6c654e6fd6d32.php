@@ -53,6 +53,10 @@ Detail Surat
                                         <td><?php echo e($item->letter_char); ?></td>
                                     </tr>
                                     <tr>
+                                        <th>Asal Pengirim</th>
+                                        <td><?php echo e($item->sender_type); ?></td>
+                                    </tr>
+                                    <tr>
                                         <th>Perihal</th>
                                         <td><?php echo e($item->regarding); ?></td>
                                     </tr>
@@ -62,11 +66,11 @@ Detail Surat
                                     </tr>
                                     <tr>
                                         <th>Pengirim Surat</th>
-                                        <td><?php echo e($item->sender_name); ?></td>
+                                        <td><?php echo e($item->sender_name_external); ?></td>
                                     </tr>
                                     <tr>
                                         <th>Departemen</th>
-                                        <td><?php echo e($item->department->name); ?></td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>

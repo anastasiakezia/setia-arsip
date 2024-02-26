@@ -73,8 +73,12 @@ Surat Masuk
                                         <th>No. Surat</th>
                                         <th>Sifat Surat</th>
                                         <th>Perihal</th>
+                                        <th>Jenis Pengirim</th>
                                         <th>Pengirim</th>
-                                        <th>Disposisi</th>                         
+                                        
+                                        
+                                        
+                                        <th>Direksi / Karyawan Tujuan</th>                         
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -216,6 +220,8 @@ unset($__errorArgs, $__bag); ?>
         ordering: true,
         ajax: {
             url: '<?php echo url()->current(); ?>',
+            // type:'GET',
+            // dataType:'json'
         },
         columns: [{
                 "data": 'DT_RowIndex',
@@ -241,13 +247,30 @@ unset($__errorArgs, $__bag); ?>
                 name: 'regarding'
             },
             {
-                data: 'sender_name',
-                name: 'sender_name'
+                data: 'sender_type',
+                name: 'sender_type'
             },
             {
-                data: 'disposisi',
-                name: 'disposisi'
+                data: 'sender_name',
+                // data: 'sender_internal',
+                name: 'sender_name'
             },
+            // {
+            //     data: 'unit_sender_internal',
+            //     name: 'unit_sender_internal',
+            // },
+            // {
+            //     data: 'sender_name_internal',
+            //     name:'sender_name_internal'
+            // },
+            {
+                data: 'employee.nama',
+                name: 'employee.nama'
+            },
+            // {
+            //     data:'employee.position',
+            //     name: 'employee.position'
+            // },
             {
                 data: 'action',
                 name: 'action',
@@ -255,8 +278,10 @@ unset($__errorArgs, $__bag); ?>
                 searcable: true,
                 width: '15%'
             },
+            
         ]
     });
+    
 $(document).ready(function(){
     $('#tujuan_disposisi').change(function() {
         var id = $(this).val();
@@ -279,9 +304,6 @@ $(document).ready(function(){
                     }
                 }
             });
-        // } else {
-        //     $("#direksi_tujuan").empty();
-        // }
     });
 });
     
@@ -313,31 +335,6 @@ $(document).ready(function(){
         // }
     });
 });
-//    $('#kecamatan').change(function(){
-//     var kecID = $(this).val();    
-//     if(kecID){
-//         $.ajax({
-//            type:"GET",
-//            url:"getdesa?kecID="+kecID,
-//            dataType: 'JSON',
-//            success:function(res){               
-//             if(res){
-//                 $("#direksi_tujuan").empty();
-//                 $("#direksi_tujuan").append('<option>---Pilih Desa---</option>');
-//                 $.each(res,function(nama,kode){
-//                     $("#direksi_tujuan").append('<option value="'+kode+'">'+nama+'</option>');
-//                 });
-//             }else{
-//                $("#direksi_tujuan").empty();
-//             }
-//            }
-//         });
-//     }else{
-//         $("#direksi_tujuan").empty();
-//     }      
-//    });
-    
-    
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\setia-arsip\resources\views/pages/admin/letter/incoming.blade.php ENDPATH**/ ?>

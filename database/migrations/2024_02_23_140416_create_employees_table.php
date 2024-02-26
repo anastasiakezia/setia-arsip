@@ -14,10 +14,10 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->id();
-            $table->string('employee_name');
-            $table->string('unit');
-            $table->string('position');
+            $table->id()->primary();
+            $table->string('nama', 200);
+            $table->foreignId('departments_id')->references('id')->on('departments')->onDelete('Restrict')->onUpdate('Cascade');
+            $table->string('position', 200);
             $table->timestamps();
         });
     }

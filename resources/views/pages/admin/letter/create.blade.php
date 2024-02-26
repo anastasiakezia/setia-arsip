@@ -148,16 +148,16 @@ Tambah Surat
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="jenis_pengirim" class="col-sm-3 col-form-label">Jenis Pengirim <b style="color: red">*</b></label>
+                                <label for="sender_type" class="col-sm-3 col-form-label">Jenis Pengirim <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="jenis_pengirim" id="jenis_pengirim" class="form-control" required>
+                                    <select name="sender_type" id="sender_type" class="form-control" required>
                                         <option value='' selected disabled>Pilih Asal Surat</option>
                                         <option value="Eksternal">Eksternal</option>
                                         <option value="Internal">Internal</option>
                                     <select>                                                                      
                                     {{-- <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Isi Pengirim Surat.." required> --}}
                                 </div>
-                                @error('jenis_pengirim')
+                                @error('sender_type')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -165,9 +165,9 @@ Tambah Surat
                             </div>
                             {{-- jika pilih eksternal  --}}
                             <div class="mb-3 row" id="eksternal_fields" style="display: none">
-                                <label for="pengirim_surat" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
+                                <label for="sender_name_eksternal" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Nama / Instansi Pengirim.." required>
+                                    <input type="text" class="form-control @error('sender_name') is-invalid @enderror" value="{{ old('sender_name') }}" name="sender_name" placeholder="Nama / Instansi Pengirim..">
                                 </div>
                                 @error('sender_name')
                                 <div class="invalid-feedback">
@@ -177,29 +177,29 @@ Tambah Surat
                             </div>
                             {{-- jika pilih internal  --}}
                             <div class="mb-3 row" id="pengirim_internal_unit" style="display: none">
-                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
+                                <label for="unit_sender_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="" id="unit_pengirim" class="form-control" required>
-                                        <option value="">Pilih Unit...</option>
+                                    <select name="pengirim_unit_internal" id="unit_pengirim" class="form-control">
+                                        <option value="">Pilih Unit Pengirim...</option>
                                         @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
+                                        <option value="{{ $department->id }}" {{ (old('pengirim_unit_internal') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('department_id')
+                                @error('pengirim_unit_internal')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
                                 @enderror
                             </div>
                             <div class="mb-3 row" id ="pengirim_internal_karyawandireksi" style="display: none">
-                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
+                                <label for="sender_name" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="disposisi" id="karyawandireksi_pengirim" class="form-control" required>
-                                        <option selected disabled>..Surat ditujukan ke...</option>
+                                    <select name="sender_name" id="karyawandireksi_pengirim" class="form-control">
+                                        <option selected disabled>..Nama Pengirim...</option>
                                     </select>
                                 </div>
-                                @error('disposisi')
+                                @error('sender_name')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -213,30 +213,32 @@ Tambah Surat
                                 </div>
                                 @enderror
                             </div> --}}
+                            {{-- Tujuan Pengiriman Surat --}}
                             <div class="mb-3 row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
+                                <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="department_id" id="unit_id" class="form-control" required>
-                                        <option value="">Pilih Unit...</option>
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                        <option value="">Pilih Unit Tujuan...</option>
                                         @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
+                                        {{-- <option value="{{ $department->id }}" {{ (old('unit_tujuan') == $department->id)? 'selected':''; }}>{{ $department->name }}</option> --}}
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('department_id')
+                                {{-- @error('unit_tujuan')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
-                                @enderror
+                                @enderror --}}
                             </div>
                             <div class="mb-3 row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
+                                <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="disposisi" id="kepada" class="form-control" required>
+                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
                                         <option selected disabled>..Surat ditujukan ke...</option>
                                     </select>
                                 </div>
-                                @error('disposisi')
+                                @error('employees_id_destination')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -298,6 +300,7 @@ Tambah Surat
         theme: "bootstrap-5"
     });
 
+//TUJUAN
     $(document).ready(function(){
         $('#unit_id').change(function() {
             var id = $(this).val();
@@ -339,7 +342,7 @@ Tambah Surat
 
     // bagian pengirim surat
     $(document).ready(function(){
-        $('#jenis_pengirim').change(function() {
+        $('#sender_type').change(function() {
             var point = $(this).val();
             if(point == "Eksternal"){
                 $('#eksternal_fields').show();
@@ -362,7 +365,7 @@ Tambah Surat
                                 $("#karyawandireksi_pengirim").empty();
                                 $("#karyawandireksi_pengirim").append('<option>...Surat ditujukan ke...</option>');
                                 $.each(response, function(id, value) {
-                                    $("#karyawandireksi_pengirim").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                                    $("#karyawandireksi_pengirim").append('<option value="' + value.nama + '">' + value.nama + ' - '+value.position+'</option>');
                                 });
                             } else {
                                 $("#karyawandireksi_pengirim").empty();

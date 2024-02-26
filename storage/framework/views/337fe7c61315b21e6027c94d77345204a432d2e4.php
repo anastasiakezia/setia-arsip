@@ -143,6 +143,7 @@ Direksi dan Karyawan
         ordering: true,
         ajax: {
             url: '<?php echo url()->current(); ?>',
+            dataType:'json'
         },
         columns: [{
                 "data": 'DT_RowIndex',
@@ -154,8 +155,8 @@ Direksi dan Karyawan
                 name: 'nama'
             },
             {
-                data: 'unit',
-                name: 'unit'
+                data: 'department.name',
+                name: 'department.name'
             },
             {
                 data: 'position',

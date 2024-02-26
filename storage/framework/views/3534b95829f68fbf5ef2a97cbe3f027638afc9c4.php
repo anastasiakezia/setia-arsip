@@ -217,16 +217,16 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="mb-3 row">
-                                <label for="jenis_pengirim" class="col-sm-3 col-form-label">Jenis Pengirim <b style="color: red">*</b></label>
+                                <label for="sender_type" class="col-sm-3 col-form-label">Jenis Pengirim <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="jenis_pengirim" id="jenis_pengirim" class="form-control" required>
+                                    <select name="sender_type" id="sender_type" class="form-control" required>
                                         <option value='' selected disabled>Pilih Asal Surat</option>
                                         <option value="Eksternal">Eksternal</option>
                                         <option value="Internal">Internal</option>
                                     <select>                                                                      
                                     
                                 </div>
-                                <?php $__errorArgs = ['jenis_pengirim'];
+                                <?php $__errorArgs = ['sender_type'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -242,7 +242,7 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             
                             <div class="mb-3 row" id="eksternal_fields" style="display: none">
-                                <label for="pengirim_surat" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
+                                <label for="sender_name_eksternal" class="col-sm-3 col-form-label">Pengirim Surat <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control <?php $__errorArgs = ['sender_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -251,7 +251,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('sender_name')); ?>" name="sender_name" placeholder="Nama / Instansi Pengirim.." required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('sender_name')); ?>" name="sender_name" placeholder="Nama / Instansi Pengirim..">
                                 </div>
                                 <?php $__errorArgs = ['sender_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -269,16 +269,16 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             
                             <div class="mb-3 row" id="pengirim_internal_unit" style="display: none">
-                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
+                                <label for="unit_sender_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="" id="unit_pengirim" class="form-control" required>
-                                        <option value="">Pilih Unit...</option>
+                                    <select name="pengirim_unit_internal" id="unit_pengirim" class="form-control">
+                                        <option value="">Pilih Unit Pengirim...</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
+                                        <option value="<?php echo e($department->id); ?>" <?php echo e((old('pengirim_unit_internal') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
-                                <?php $__errorArgs = ['department_id'];
+                                <?php $__errorArgs = ['pengirim_unit_internal'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -293,13 +293,13 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="mb-3 row" id ="pengirim_internal_karyawandireksi" style="display: none">
-                                <label for="pengirim_surat_internal" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
+                                <label for="sender_name" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="disposisi" id="karyawandireksi_pengirim" class="form-control" required>
-                                        <option selected disabled>..Surat ditujukan ke...</option>
+                                    <select name="sender_name" id="karyawandireksi_pengirim" class="form-control">
+                                        <option selected disabled>..Nama Pengirim...</option>
                                     </select>
                                 </div>
-                                <?php $__errorArgs = ['disposisi'];
+                                <?php $__errorArgs = ['sender_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -315,38 +315,28 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             
                             
+                            
                             <div class="mb-3 row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
+                                <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="department_id" id="unit_id" class="form-control" required>
-                                        <option value="">Pilih Unit...</option>
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                        <option value="">Pilih Unit Tujuan...</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
+                                        
+                                        <option value="<?php echo e($department->id); ?>"><?php echo e($department->name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
-                                <?php $__errorArgs = ['department_id'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <div class="invalid-feedback">
-                                    <?php echo e($message); ?>
-
-                                </div>
-                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                                
                             </div>
                             <div class="mb-3 row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
+                                <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="disposisi" id="kepada" class="form-control" required>
+                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
                                         <option selected disabled>..Surat ditujukan ke...</option>
                                     </select>
                                 </div>
-                                <?php $__errorArgs = ['disposisi'];
+                                <?php $__errorArgs = ['employees_id_destination'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -416,6 +406,7 @@ unset($__errorArgs, $__bag); ?>
         theme: "bootstrap-5"
     });
 
+//TUJUAN
     $(document).ready(function(){
         $('#unit_id').change(function() {
             var id = $(this).val();
@@ -457,7 +448,7 @@ unset($__errorArgs, $__bag); ?>
 
     // bagian pengirim surat
     $(document).ready(function(){
-        $('#jenis_pengirim').change(function() {
+        $('#sender_type').change(function() {
             var point = $(this).val();
             if(point == "Eksternal"){
                 $('#eksternal_fields').show();
@@ -480,7 +471,7 @@ unset($__errorArgs, $__bag); ?>
                                 $("#karyawandireksi_pengirim").empty();
                                 $("#karyawandireksi_pengirim").append('<option>...Surat ditujukan ke...</option>');
                                 $.each(response, function(id, value) {
-                                    $("#karyawandireksi_pengirim").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                                    $("#karyawandireksi_pengirim").append('<option value="' + value.nama +''+value.direksi+ '">' + value.nama + ' - '+value.position+'</option>');
                                 });
                             } else {
                                 $("#karyawandireksi_pengirim").empty();

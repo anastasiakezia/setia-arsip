@@ -21,7 +21,8 @@ class EmployeeController extends Controller
 
         if (request()->ajax()) {
             // $query = Employee::latest()->get();
-            $query = Employee::all();
+            // $query = Employee::all();
+            $query = Employee::with('department')->get();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
@@ -42,11 +43,13 @@ class EmployeeController extends Controller
                 ->rawColumns(['action'])
                 ->make();
         }
-        $employees = Employee::all();
+        // $employees = Employee::all();
+        $employees = Employee::with('department')->get();
 
         return view('pages.admin.employee.index', [
             'employees' => $employees
         ]);
+        // return response()->json(['employee' => $employees]);
     }
 
     public function create()
@@ -106,5 +109,11 @@ class EmployeeController extends Controller
         return redirect()
             ->route('employee.index')
             ->with('success', 'Sukses! 1 Data Berhasil Dihapus');
+    }
+
+    public function dropdown_karyawan(Request $request)
+    {
+        $karyawan = Employee::where("departments_id", $request->id)->get();
+        return response()->json($karyawan);
     }
 }
