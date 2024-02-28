@@ -44,6 +44,11 @@ class Letter extends Model
         return $this->belongsTo(Employee::class, 'employees_id_destination', 'id');
     }
 
+    public function PengirimUnitInternal()
+    {
+        return $this->belongsTo(Department::class, 'pengirim_unit_internal', 'id');
+    }
+
     public function sender()
     {
         return $this->belongsTo(Sender::class, 'sender_id', 'id');

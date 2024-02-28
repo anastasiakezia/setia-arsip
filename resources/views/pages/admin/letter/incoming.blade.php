@@ -94,7 +94,7 @@ Surat Masuk
         <div class="modal-dialog" role="document" style="max-width:64%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModal">Tambah Disposisi</h5>
+                    <h5 class="modal-title" id="createModal">Tambah Disposisi / Eskalasi</h5>
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('disposisi.store') }}" method="post" enctype="multipart/form-data">
@@ -178,7 +178,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Isi Disposisi</b></label>
+                                <label for="post_id"><b>Isi Disposisi / Eskalasi</b></label>
                                 {{-- <textarea id="disposisi_desc" class="disposisi-desc" cols="50" rows ="4" name="disposisi_desc" placeholder="Masukan isi Disposisi.." class="form-control" required style="border: 1px solid #cccccc; border-radius:5px;"></textarea> --}}
                                 <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi.." required style="height: 100px; width:770px;"></textarea>
                             </div>

@@ -469,9 +469,9 @@ unset($__errorArgs, $__bag); ?>
                         success: function(response) {
                             if (response) {
                                 $("#karyawandireksi_pengirim").empty();
-                                $("#karyawandireksi_pengirim").append('<option>...Surat ditujukan ke...</option>');
+                                $("#karyawandireksi_pengirim").append('<option>...Nama Pengirim...</option>');
                                 $.each(response, function(id, value) {
-                                    $("#karyawandireksi_pengirim").append('<option value="' + value.nama +''+value.direksi+ '">' + value.nama + ' - '+value.position+'</option>');
+                                    $("#karyawandireksi_pengirim").append('<option value="' + value.nama + '">' + value.nama + ' - '+value.position+'</option>');
                                 });
                             } else {
                                 $("#karyawandireksi_pengirim").empty();

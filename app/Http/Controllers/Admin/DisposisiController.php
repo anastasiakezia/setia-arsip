@@ -19,14 +19,14 @@ class DisposisiController extends Controller
         //
     }
 
-    public function create()
-    {
+    // public function create()
+    // {
 
-        $letters = Letter::all();
-        return view('pages.admin.disposisi.create', [
-            'letters' => $letters,
-        ]);
-    }
+    //     $letters = Letter::all();
+    //     return view('pages.admin.disposisi.create', [
+    //         'letters' => $letters,
+    //     ]);
+    // }
 
     public function store(Request $request)
     {

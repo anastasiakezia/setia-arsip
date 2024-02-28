@@ -36,6 +36,7 @@ Detail Surat
                         <div class="mb-3 row">
                             <table class="table">
                                 <tbody>
+              
                                     <tr>
                                         <th>Jenis Surat</th>
                                         <td>{{ $item->letter_type }}</td>
@@ -60,18 +61,29 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td>{{ $item->regarding }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Tujuan Disposisi</th>
                                         <td>{{ $item->disposisi }}</td>
+                                    </tr> --}}
+                                    <tr>
+                                        @if ($item->PengirimUnitInternal)
+                                            @if($item->sender_type == "Internal")
+                                            <th>Unit Pengirim</th>
+                                            <td>{{ $item->PengirimUnitInternal->name }}</td>
+                                            @elseif($item->sender_type == "Eksternal")
+                                            {{-- <th style="display: none">Unit Pengirim</th> --}}
+                                            {{-- <td>{{'-'}}</td> --}}
+                                            @endif                                           
+                                        @else
+                                        <th>Unit Pengirim</th>
+                                        <td>{{'-'}}</td>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <th>Pengirim Surat</th>
-                                        <td>{{ $item->sender_name_external}}</td>
+                                        <td>{{ $item->sender_name}}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Departemen</th>
-                                        {{-- <td>{{ $item->department->name }}</td> --}}
-                                    </tr>
+                             
                                 </tbody>
                             </table>
                         </div>

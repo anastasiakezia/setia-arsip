@@ -10,10 +10,10 @@ class Disposisi extends Model
     use HasFactory;
     protected $fillable = [
         'letter_id',
-        'asal_disposisi',
-        'status',
-        'sifat',
-        'tujuan_disposisi',
+        'asal_unit_disposisi',
+        'asal_karyawan_disposisi',
+        'tujuan_unit_disposisi',
+        'tujuan_karyawan_disposisi',
         'isi_disposisi',
         'letter_file'
     ];

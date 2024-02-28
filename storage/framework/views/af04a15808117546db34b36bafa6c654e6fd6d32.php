@@ -36,6 +36,7 @@ Detail Surat
                         <div class="mb-3 row">
                             <table class="table">
                                 <tbody>
+              
                                     <tr>
                                         <th>Jenis Surat</th>
                                         <td><?php echo e($item->letter_type); ?></td>
@@ -60,18 +61,26 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td><?php echo e($item->regarding); ?></td>
                                     </tr>
+                                    
                                     <tr>
-                                        <th>Tujuan Disposisi</th>
-                                        <td><?php echo e($item->disposisi); ?></td>
+                                        <?php if($item->PengirimUnitInternal): ?>
+                                            <?php if($item->sender_type == "Internal"): ?>
+                                            <th>Unit Pengirim</th>
+                                            <td><?php echo e($item->PengirimUnitInternal->name); ?></td>
+                                            <?php elseif($item->sender_type == "Eksternal"): ?>
+                                            
+                                            
+                                            <?php endif; ?>                                           
+                                        <?php else: ?>
+                                        <th>Unit Pengirim</th>
+                                        <td><?php echo e('-'); ?></td>
+                                        <?php endif; ?>
                                     </tr>
                                     <tr>
                                         <th>Pengirim Surat</th>
-                                        <td><?php echo e($item->sender_name_external); ?></td>
+                                        <td><?php echo e($item->sender_name); ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>Departemen</th>
-                                        
-                                    </tr>
+                             
                                 </tbody>
                             </table>
                         </div>

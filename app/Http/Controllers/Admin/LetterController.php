@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\Letter;
 use App\Models\Sender;
 
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
 
@@ -154,25 +155,34 @@ class LetterController extends Controller
 
     public function show($id)
     {
-        $item = Letter::with(['department', 'sender'])->findOrFail($id);
+        // $item = Letter::with(['employee', 'employee.department', 'pengirim_unit_internal'])->findOrFail($id);
+        $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->findOrFail($id);
+
+        // $item = DB::table('letters')
+        //     ->leftJoin('departments', 'letters.pengirim_unit_internal', '=', 'departments.id')
+        //     ->get();
 
         return view('pages.admin.letter.show', [
             'item' => $item,
         ]);
+
+        // return response()->json(['items' => $item]);
     }
 
     public function edit($id)
     {
-        $item = Letter::findOrFail($id);
-        $departments = Department::all();
-        $senders = Sender::all();
+        // $item = Letter::findOrFail($id);
+        $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->findOrFail($id);
 
+        $departments = Department::all();
+        // $senders = Sender::all();
         return view('pages.admin.letter.edit', [
             'departments' => $departments,
-            'senders' => $senders,
+            // 'senders' => $senders,
             'item' => $item,
-            'disposisi' => explode(',', $item->disposisi),
+            // 'disposisi' => explode(',', $item->disposisi),
         ]);
+        // return response()->json(['items' => $item]);
     }
 
     public function download_letter($id)

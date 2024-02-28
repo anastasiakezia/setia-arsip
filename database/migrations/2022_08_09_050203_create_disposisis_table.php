@@ -16,11 +16,11 @@ class CreateDisposisisTable extends Migration
         Schema::create('disposisis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('letter_id');
-            $table->string('lampiran');
-            $table->string('status');
-            $table->string('sifat');
-            $table->string('petunjuk')->nullable();
-            $table->text('catatan_rektor')->nullable();
+            $table->string('asal_unit_disposisi');
+            $table->string('asal_karyawan_disposisi');
+            $table->string('tujuan_unit_disposisi');
+            $table->string('tujuan_karyawan_disposisi');
+            $table->string('isi_disposisi');
             $table->string('letter_file')->nullable();
             $table->timestamps();
         });
