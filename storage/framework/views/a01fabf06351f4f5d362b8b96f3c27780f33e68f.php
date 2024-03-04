@@ -103,12 +103,9 @@ Surat Masuk
                     <div class="modal-body overflow-auto">
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <?php $__currentLoopData = $letters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $letter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <input type="hidden" name="letter_id" value=<?php echo e($letter->id); ?>>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <label for="post_id"><b>Jenis Surat</b></label>
-                                <select class="form-control">
-                                    <option value="Surat Masuk" >Surat Masuk</option>
+                                <select name="letter_type" class="form-control" required>
+                                    <option value="Surat Masuk" <?php echo e((old('letter_type') == 'Surat Masuk')? 'selected':''); ?>>Surat Masuk</option>
                                 </select>
                             </div>
                         </div>
@@ -116,20 +113,32 @@ Surat Masuk
                             <div class="col-md-12">
                                 
                                 <label for="post_id"><b>Asal Unit</b></label>
-                                <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="department_id" id="asal_unit" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
-                                
+                                <?php $__errorArgs = ['department_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback">
+                                    <?php echo e($message); ?>
+
+                                </div>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12" style="margin-bottom:30px">
                                 
                                 <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
-                                <select class="form-control" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="department_id" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>
                                     <option>== Pilih Direksi / Karyawan ==</option>
                                         
                                 </select>
@@ -152,7 +161,7 @@ unset($__errorArgs, $__bag); ?>
                             <div class="col-md-12" style="margin-top: 20px">
                                 
                                 <label for="post_id"><b>Tujuan Unit</b></label>
-                                <select class="form-control" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
+                                <select class="form-control" name="id_unit" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
                                     <option>== Tujuan Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
@@ -164,7 +173,7 @@ unset($__errorArgs, $__bag); ?>
                             <div class="col-md-12">
                                 
                                 <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
-                                <select class="form-control" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="department_id" id="direksi_tujuan" data-placeholder="pilih unit" required>
                                     <option>---Pilih Direksi / Karyawan---</option>
                                     
                                         

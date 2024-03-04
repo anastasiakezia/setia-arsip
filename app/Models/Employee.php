@@ -9,13 +9,13 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama',
-        'departments_id',
-        'position'
-    ];
+    // protected $fillable = [
+    //     'employee_name',
+    //     'unit',
+    //     'position'
+    // ];
 
-    // protected $guarded = [];
+    protected $guarded = [];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -27,12 +27,4 @@ class Employee extends Model
     {
         return $this->hasMany(Letter::class);
     }
-    // public function disposisi()
-    // {
-    //     return $this->hasMany(Disposisi::class);
-    // }
-    // public function tujuanDisposisi()
-    // {
-    //     return $this->hasOne('Disposisi::class');
-    // }
 }
