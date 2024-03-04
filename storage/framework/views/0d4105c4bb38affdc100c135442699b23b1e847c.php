@@ -44,10 +44,7 @@ Detail Surat
                                         <th>Tanggal Surat</th>
                                         <td><?php echo e(Carbon\Carbon::parse($item->letter->letter_date)->translatedFormat('l, d F Y')); ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>Lampiran</th>
-                                        <td><?php echo e($item->lampiran); ?></td>
-                                    </tr>
+                                    
                                     <tr>
                                     <tr>
                                         <th>Sifat Surat</th>
@@ -69,63 +66,23 @@ Detail Surat
                                         <th>Sifat</th>
                                         <td><?php echo e($item->sifat); ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>Petunjuk</th>
-                                        <td><?php echo e($item->petunjuk); ?></td>
-                                    </tr>
+                                    
                                     <tr>
                                         <th>Tujuan Disposisi</th>
                                         <td><?php echo e($item->letter->disposisi); ?></td>
                                     </tr>
                                     <tr>
                                         <th>Catatan Rektor</th>
-                                        <td><?php echo e($item->catatan_rektor); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian</th>
-                                        <td><?php echo e(Carbon\Carbon::parse($item->tgl_selesai)->translatedFormat('l, d F Y')); ?></td>
+                                        <td><?php echo e($item->isi_disposisi); ?></td>
                                     </tr>
                                     <tr>
                                         <th>Kepada</th>
                                         <td><?php echo e($item->kepada); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Petunjuk</th>
-                                        <td><?php echo e($item->petunjuk_kpd_1); ?></td>
+                                        <th>Penerima Disposisi / Eskalasi</th>
+                                        <td><?php echo e($item->tujuan_disposisi->nama); ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian 2</th>
-                                        <td><?php echo e(Carbon\Carbon::parse($item->tgl_selesai_2)->translatedFormat('l, d F Y')); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima</th>
-                                        <td><?php echo e($item->penerima_2); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Pengajuan Kembali</th>
-                                        <td><?php echo e(Carbon\Carbon::parse($item->tgl_aju_kembali)->translatedFormat('l, d F Y')); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima Disposisi</th>
-                                        <td><?php echo e($item->penerima_disposisi_2); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Kepada</th>
-                                        <td><?php echo e($item->kepada_2); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Petunjuk</th>
-                                        <td><?php echo e($item->petunjuk_kpd_2); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian</th>
-                                        <td><?php echo e(Carbon\Carbon::parse($item->tgl_selesai_3)->translatedFormat('l, d F Y')); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima</th>
-                                        <td><?php echo e($item->penerima_3); ?></td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

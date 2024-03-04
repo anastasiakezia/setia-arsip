@@ -173,11 +173,12 @@ class LetterController extends Controller
     {
         // $item = Letter::findOrFail($id);
         $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->findOrFail($id);
-
+        $employees = Employee::all();
         $departments = Department::all();
         // $senders = Sender::all();
         return view('pages.admin.letter.edit', [
             'departments' => $departments,
+            'employees' => $employees,
             // 'senders' => $senders,
             'item' => $item,
             // 'disposisi' => explode(',', $item->disposisi),
@@ -195,11 +196,17 @@ class LetterController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'letter_no' => 'required',
+            'letter_no' => 'required|unique:letters',
             'letter_date' => 'required',
             'letter_char' => 'required',
+            'sender_type' => 'required',
+            'letter_name' => 'required',
             'regarding' => 'required',
             'disposisi' => 'required',
+            'sender_type' => 'required',
+            'letter_name' => 'required',
+            'pengirim_unit_internal' => '',
+            'employees_id_destination' => 'required',
             'sender_name' => 'required',
             'department_id' => 'required',
             // 'sender_id' => 'required',

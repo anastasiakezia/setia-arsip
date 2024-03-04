@@ -44,10 +44,10 @@ Detail Surat
                                         <th>Tanggal Surat</th>
                                         <td>{{ Carbon\Carbon::parse($item->letter->letter_date)->translatedFormat('l, d F Y') }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Lampiran</th>
                                         <td>{{ $item->lampiran }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                     <tr>
                                         <th>Sifat Surat</th>
@@ -69,63 +69,26 @@ Detail Surat
                                         <th>Sifat</th>
                                         <td>{{ $item->sifat }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Petunjuk</th>
                                         <td>{{ $item->petunjuk }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <th>Tujuan Disposisi</th>
                                         <td>{{ $item->letter->disposisi }}</td>
                                     </tr>
                                     <tr>
                                         <th>Catatan Rektor</th>
-                                        <td>{{ $item->catatan_rektor }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian</th>
-                                        <td>{{ Carbon\Carbon::parse($item->tgl_selesai)->translatedFormat('l, d F Y') }}</td>
+                                        <td>{{ $item->isi_disposisi }}</td>
                                     </tr>
                                     <tr>
                                         <th>Kepada</th>
                                         <td>{{ $item->kepada }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Petunjuk</th>
-                                        <td>{{ $item->petunjuk_kpd_1 }}</td>
+                                        <th>Penerima Disposisi / Eskalasi</th>
+                                        <td>{{ $item->tujuan_disposisi->nama}}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian 2</th>
-                                        <td>{{ Carbon\Carbon::parse($item->tgl_selesai_2)->translatedFormat('l, d F Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima</th>
-                                        <td>{{ $item->penerima_2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Pengajuan Kembali</th>
-                                        <td>{{ Carbon\Carbon::parse($item->tgl_aju_kembali)->translatedFormat('l, d F Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima Disposisi</th>
-                                        <td>{{ $item->penerima_disposisi_2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Kepada</th>
-                                        <td>{{ $item->kepada_2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Petunjuk</th>
-                                        <td>{{ $item->petunjuk_kpd_2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Penyelesaian</th>
-                                        <td>{{ Carbon\Carbon::parse($item->tgl_selesai_3)->translatedFormat('l, d F Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Penerima</th>
-                                        <td>{{ $item->penerima_3 }}</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

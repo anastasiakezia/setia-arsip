@@ -50,6 +50,10 @@ Detail Surat
                                         <td>{{ $item->letter_no }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Nama Surat</th>
+                                        <td>{{ $item->letter_name }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Sifat Surat</th>
                                         <td>{{ $item->letter_char}}</td>
                                     </tr>
@@ -83,7 +87,14 @@ Detail Surat
                                         <th>Pengirim Surat</th>
                                         <td>{{ $item->sender_name}}</td>
                                     </tr>
-                             
+                                    <tr>
+                                        <th>Unit Tujuan</th>
+                                        <td>{{ $item->employee->department->name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Direksi / Karyawan Tujuan</th>
+                                        <td>{{ $item->employee->nama}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

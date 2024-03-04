@@ -60,17 +60,17 @@ Surat Disposisi
                         <?php endif; ?>
                         
                         <div class="table table-responsive">
-                            <table class="table table-striped table-hover table-sm table-responsive" id="crudTable">
+                            <table class="table table-striped table-hover table-sm table-responsive" id="disposisiTable">
                                 <thead>
                                     <tr>
                                         <th width="10">No.</th>
                                         <th>No.Surat</th>
-                                        <th>Lampiran</th>
-                                        <th>Status</th>
-                                        <th>Tanggal Selesai</th>
-                                        <th>Disposisi</th>
-                                        <th>Kepada</th>                                     
-                                        <th>Aksi</th>
+                                        <th>Asal Unit</th>
+                                        <th>Asal Direksi / Karyawan</th>
+                                        <th>Tujuan Unit</th>
+                                        <th>Tujuan Direksi / Karyawan</th>  
+                                        <th>Isi Disposisi</th>
+                                        <th>Aksi</th>              
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -86,7 +86,7 @@ Surat Disposisi
 
 <?php $__env->startPush('addon-script'); ?>
 <script>
-    var datatable = $('#crudTable').DataTable({
+    var datatable = $('#disposisiTable').DataTable({
         processing: true,
         serverSide: true,
         ordering: true,
@@ -100,29 +100,30 @@ Surat Disposisi
             },
             {
                 data: 'letter.letter_no',
+                // label: 'No.Surat'
                 name: 'letter.letter_no'
             },
             {
-                data: 'lampiran',
-                name: 'lampiran'
+                data: 'asal_disposisi.department.name',
+                name: 'asal_disposisi.department.name'
             },
             {
-                data: 'status',
-                name: 'status'
+                data: 'asal_disposisi.nama',
+                name: 'asal_disposisi.nama'
             },
             {
-                data: 'tgl_selesai',
-                name: 'tgl_selesai'
+                data: 'tujuan_disposisi.department.name',
+                name: 'tujuan_disposisi.department.name'
             },
             {
-                data: 'letter.disposisi',
-                name: 'letter.disposisi'
+                data: 'tujuan_disposisi.nama',
+                name: 'tujuan_disposisi.nama'
             },
             {
-                data: 'kepada',
-                name: 'kepada'
+                data: 'isi_disposisi',
+                name: 'isi_disposisi'
+                // label:'isi_disposisi'
             },
-
             {
                 data: 'action',
                 name: 'action',

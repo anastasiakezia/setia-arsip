@@ -50,6 +50,10 @@ Detail Surat
                                         <td><?php echo e($item->letter_no); ?></td>
                                     </tr>
                                     <tr>
+                                        <th>Nama Surat</th>
+                                        <td><?php echo e($item->letter_name); ?></td>
+                                    </tr>
+                                    <tr>
                                         <th>Sifat Surat</th>
                                         <td><?php echo e($item->letter_char); ?></td>
                                     </tr>
@@ -80,7 +84,14 @@ Detail Surat
                                         <th>Pengirim Surat</th>
                                         <td><?php echo e($item->sender_name); ?></td>
                                     </tr>
-                             
+                                    <tr>
+                                        <th>Unit Tujuan</th>
+                                        <td><?php echo e($item->employee->department->name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Direksi / Karyawan Tujuan</th>
+                                        <td><?php echo e($item->employee->nama); ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
