@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 use App\Models\Letter;
 use App\Models\Disposisi;
+use App\Models\Employee;
+use App\Models\Department;
 
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
 
 class DisposisiController extends Controller
 {
@@ -30,25 +34,26 @@ class DisposisiController extends Controller
 
     public function store(Request $request)
     {
+        // $letter = Letter::findOrfail($id);
         $validatedData = $request->validate([
             'letter_id' => 'required',
-            'status' => 'required',
-            'sifat' => 'required',
             'asal_disposisi' => 'required',
             'tujuan_disposisi' => 'required',
             'isi_disposisi' => 'required',
-            'letter_file' => 'mimes:pdf|file'
+            'letter_file' => 'mimes:pdf|file',
         ]);
 
         if ($request->file('letter_file')) {
             $validatedData['letter_file'] = $request->file('letter_file')->store('assets/letter-file');
         }
-        if ($request->input('status')) {
-            $validatedData['status'] = implode(',', $request->status);
-        }
-        if ($request->input('sifat')) {
-            $validatedData['sifat'] = implode(',', $request->sifat);
-        }
+        // if ($request->input('')) {
+        //     $validatedData['status'] = implode(',', $request->status);
+        // }
+        // if ($request->input('sifat')) {
+        //     $validatedData['sifat'] = implode(',', $request->sifat);
+        // }
+        $validateData['approve_status'] = 0;
+
 
         //   ddd($request->all());
 
@@ -63,7 +68,7 @@ class DisposisiController extends Controller
     public function disposisi_form()
     {
         if (request()->ajax()) {
-            $query = Disposisi::with(['letter'])->latest()->get();
+            $query = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->latest()->get();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
@@ -72,7 +77,7 @@ class DisposisiController extends Controller
                             <i class="fa fa-search-plus"></i> &nbsp; Detail
                         </a>
                         <a class="btn btn-primary btn-xs" href="' . route('disposisi.edit', $item->id) . '">
-                            <i class="fas fa-edit"></i> &nbsp; Ubah
+                            <i class="fas fa-edit"></i> &nbsp; Disposisi/Eskalasi
                         </a>
                         <a class="btn btn-secondary btn-xs" href="' . route('disposisi-surat', $item->id) . '" target="_blank">
                             <i class="fas fa-print"></i> &nbsp; Cetak
@@ -91,11 +96,36 @@ class DisposisiController extends Controller
                 ->addIndexColumn()
                 ->removeColumn('id')
                 ->rawColumns(['action', 'post_status'])
-                ->make();
+                ->make(true);
         }
 
-        return view('pages.admin.disposisi.incoming');
+        // $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->get();
+        $employees = Employee::all();
+        $departments = Department::all();
+        $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->get();
+
+        return view('pages.admin.disposisi.incoming', [
+            'item' => $item,
+            'departments' => $departments,
+            'employees' => $employees
+        ]);
+        // return response()->json(['item' => $item]);
     }
+
+    // public function disposisi($id)
+    // {
+    //     $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->findOrFail($id);
+    //     $employees = Employee::all();
+    //     $departments = Department::all();
+
+    //     return view('pages.admin.disposisi.disposisi', [
+    //         'departments' => $departments,
+    //         'employees' => $employees,
+    //         'item' => $item,
+    //         // 'disposisi' => explode(',', $item->disposisi),
+    //     ]);
+    //     // return response()->json(['items' => $item]);
+    // }
 
     public function show($id)
     {
@@ -156,18 +186,18 @@ class DisposisiController extends Controller
         if ($request->file('letter_file')) {
             $validatedData['letter_file'] = $request->file('letter_file')->store('assets/letter-file');
         }
-        if ($request->input('status')) {
-            $validatedData['status'] = implode(',', $request->status);
-        }
-        if ($request->input('sifat')) {
-            $validatedData['sifat'] = implode(',', $request->sifat);
-        }
-        if ($request->input('petunjuk')) {
-            $validatedData['petunjuk'] = implode(',', $request->petunjuk);
-        }
-        if ($request->input('penerima_disposisi_2')) {
-            $validatedData['penerima_disposisi_2'] = implode(',', $request->penerima_disposisi_2);
-        }
+        // if ($request->input('status')) {
+        //     $validatedData['status'] = implode(',', $request->status);
+        // }
+        // if ($request->input('sifat')) {
+        //     $validatedData['sifat'] = implode(',', $request->sifat);
+        // }
+        // if ($request->input('petunjuk')) {
+        //     $validatedData['petunjuk'] = implode(',', $request->petunjuk);
+        // }
+        // if ($request->input('penerima_disposisi_2')) {
+        //     $validatedData['penerima_disposisi_2'] = implode(',', $request->penerima_disposisi_2);
+        // }
         $redirect = 'surat-disposisi';
 
         // dd($request->all());

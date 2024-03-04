@@ -148,7 +148,7 @@ class LetterController extends Controller
 
         return view('pages.admin.letter.incoming', [
             'departments' => $departments,
-            'letters' => $letters
+            'letters' => $letters,
         ]);
         // return response()->json(['letters' => $letters]);
     }
@@ -173,12 +173,13 @@ class LetterController extends Controller
     {
         // $item = Letter::findOrFail($id);
         $item = Letter::with(['employee', 'employee.department', 'PengirimUnitInternal'])->findOrFail($id);
-
+        $employees = Employee::all();
         $departments = Department::all();
         // $senders = Sender::all();
         return view('pages.admin.letter.edit', [
             'departments' => $departments,
             // 'senders' => $senders,
+            'employees' => $employees,
             'item' => $item,
             // 'disposisi' => explode(',', $item->disposisi),
         ]);
@@ -195,14 +196,19 @@ class LetterController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'letter_no' => 'required',
+            'letter_no' => 'required|unique:letters',
             'letter_date' => 'required',
             'letter_char' => 'required',
+            'sender_type' => 'required',
+            'letter_name' => 'required',
+            // 'sender_name_external',
+            // 'sender_name_internal',
             'regarding' => 'required',
-            'disposisi' => 'required',
-            'sender_name' => 'required',
-            'department_id' => 'required',
+            // 'department_id' => 'required',
             // 'sender_id' => 'required',
+            'sender_name' => 'required',
+            'pengirim_unit_internal' => '',
+            'employees_id_destination' => 'required',
             'letter_file' => 'mimes:pdf|file',
             'letter_type' => 'required',
         ]);
@@ -257,6 +263,7 @@ class LetterController extends Controller
             ->route($redirect)
             ->with('success', 'Sukses! 1 Data Berhasil Dihapus');
     }
+
     public function cobaCetak()
     {
         return view('pages.admin.letter.cetak-disposisi');

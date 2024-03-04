@@ -41,7 +41,7 @@ Tambah Surat
         <form action="{{ route('letter.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row gx-4">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <div class="card mb-4">
                         <div class="card-header">Form Surat</div>
                         <div class="card-body">

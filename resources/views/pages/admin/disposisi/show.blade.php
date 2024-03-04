@@ -44,10 +44,10 @@ Detail Surat
                                         <th>Tanggal Surat</th>
                                         <td>{{ Carbon\Carbon::parse($item->letter->letter_date)->translatedFormat('l, d F Y') }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Lampiran</th>
                                         <td>{{ $item->lampiran }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                     <tr>
                                         <th>Sifat Surat</th>

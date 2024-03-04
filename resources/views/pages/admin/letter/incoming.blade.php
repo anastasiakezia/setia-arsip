@@ -102,9 +102,12 @@ Surat Masuk
                     <div class="modal-body overflow-auto">
                         <div class="mb-3">
                             <div class="col-md-12">
+                                @foreach ($letters as $letter)
+                                <input type="hidden" name="letter_id" value={{ $letter->id }}>
+                                @endforeach
                                 <label for="post_id"><b>Jenis Surat</b></label>
-                                <select name="letter_type" class="form-control" required>
-                                    <option value="Surat Masuk" {{ (old('letter_type') == 'Surat Masuk')? 'selected':''; }}>Surat Masuk</option>
+                                <select class="form-control">
+                                    <option value="Surat Masuk" >Surat Masuk</option>
                                 </select>
                             </div>
                         </div>
@@ -113,17 +116,17 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Asal Unit</b></label>
-                                <select class="form-control" name="department_id" id="asal_unit" data-placeholder="pilih unit" required>
+                                <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
                                         @endforeach
                                 </select>
-                                @error('department_id')
+                                {{-- @error('department_id')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
-                                @enderror
+                                @enderror --}}
                             </div>
                         </div>
                         <div class="mb-3">
@@ -131,7 +134,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
-                                <select class="form-control" name="department_id" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>
                                     <option>== Pilih Direksi / Karyawan ==</option>
                                         {{-- @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}" {{ (old('department_id') == $employee->id)? 'selected':''; }}>{{ $employee->employee_name }} - {{ $employee->position }}</option>
@@ -149,7 +152,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Tujuan Unit</b></label>
-                                <select class="form-control" name="id_unit" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
+                                <select class="form-control" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">
                                     <option>== Tujuan Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
@@ -162,7 +165,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
-                                <select class="form-control" name="department_id" id="direksi_tujuan" data-placeholder="pilih unit" required>
+                                <select class="form-control" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
                                     <option>---Pilih Direksi / Karyawan---</option>
                                     {{-- <option>== Pilih Direksi / Karyawan ==</option> --}}
                                         {{-- @foreach ($departments as $department)
