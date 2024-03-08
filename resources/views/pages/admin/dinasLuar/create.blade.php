@@ -72,16 +72,16 @@ Tambah Laporan Dinas Luar
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-3 row">
-                                <label for="letter_no" class="col-sm-3 col-form-label">Nama Petugas Dinas Luar <b style="color: red">*</b></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('letter_no') is-invalid @enderror" value="{{ old('letter_no') }}" name="letter_no" placeholder="Nomor Surat.." required>
+                            <div class="mb-3">
+                                <div class="col-md-12">
+                                    <label for="post_id"><b>Asal Unit</b></label>
+                                    <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
+                                        <option>== Pilih Unit ==</option>
+                                            @foreach ($departments as $department)
+                                            <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
+                                            @endforeach
+                                    </select>
                                 </div>
-                                @error('letter_no')
-                                <div class="invalid-feedback">
-                                    {{ $message; }}
-                                </div>
-                                @enderror
                             </div>
                             <div class="mb-3 row">
                                 <label for="letterout_type" class="col-sm-3 col-form-label">Jabatan <b style="color: red">*</b></label>

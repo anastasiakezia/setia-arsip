@@ -95,31 +95,16 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
-                            <div class="mb-3 row">
-                                <label for="letter_no" class="col-sm-3 col-form-label">Nama Petugas Dinas Luar <b style="color: red">*</b></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control <?php $__errorArgs = ['letter_no'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('letter_no')); ?>" name="letter_no" placeholder="Nomor Surat.." required>
+                            <div class="mb-3">
+                                <div class="col-md-12">
+                                    <label for="post_id"><b>Asal Unit</b></label>
+                                    <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
+                                        <option>== Pilih Unit ==</option>
+                                            <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
                                 </div>
-                                <?php $__errorArgs = ['letter_no'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <div class="invalid-feedback">
-                                    <?php echo e($message); ?>
-
-                                </div>
-                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="mb-3 row">
                                 <label for="letterout_type" class="col-sm-3 col-form-label">Jabatan <b style="color: red">*</b></label>

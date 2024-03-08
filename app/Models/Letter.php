@@ -49,6 +49,13 @@ class Letter extends Model
         return $this->belongsTo(Department::class, 'pengirim_unit_internal', 'id');
     }
 
+    public function status($value)
+    {
+        return $value == 0 ? 'Aktif' : 'Tidak Aktif';
+
+        // return $status_surat[$value];
+    }
+
     public function sender()
     {
         return $this->belongsTo(Sender::class, 'sender_id', 'id');

@@ -41,6 +41,7 @@ class DisposisiController extends Controller
             'asal_disposisi' => 'required',
             'tujuan_disposisi' => 'required',
             'isi_disposisi' => 'required',
+            'status_surat' => 'required',
             'letter_file' => 'mimes:pdf|file'
         ]);
 
@@ -55,12 +56,11 @@ class DisposisiController extends Controller
         // }
 
         $validateData['approve_status'] = 0;
-
         //   ddd($request->all());
-
         $redirect = 'surat-disposisi';
 
         Disposisi::create($validatedData);
+
         return redirect()
             ->route($redirect)
             ->with('success', 'Sukses! 1 Data Berhasil Disimpan');
@@ -114,11 +114,13 @@ class DisposisiController extends Controller
 
     public function show($id)
     {
-        $item = Disposisi::with(['letter'])->findOrFail($id);
+        $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuanDisposisi', 'tujuan_disposisi.department', 'tujuanDisposisi.department'])->findOrFail($id);
 
         return view('pages.admin.disposisi.show', [
             'item' => $item,
         ]);
+
+        // return response()->json(['items' => $item]);
     }
     public function disposisiprint($id)
     {
@@ -135,7 +137,7 @@ class DisposisiController extends Controller
 
     public function edit($id)
     {
-        $item = Disposisi::findOrFail($id);
+        $item = Disposisi::with(['letter', 'asal_disposisi.department', ''])->findOrFail($id);
 
         $letters = Letter::all();
         $employees = Employee::all();
@@ -164,6 +166,7 @@ class DisposisiController extends Controller
             'asal_disposisi' => 'required',
             'tujuan_disposisi' => 'required',
             'isi_disposisi' => 'required',
+            'status_surat' => 'required',
             'letter_file' => 'mimes:pdf|file'
         ]);
 

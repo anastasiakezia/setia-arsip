@@ -33,6 +33,15 @@ class Disposisi extends Model
     {
         return $this->belongsTo(Employee::class, 'asal_disposisi', 'id');
     }
+    public function asalDisposisi()
+    {
+        return $this->belongsTo(Employee::class, 'asal_disposisi', 'id');
+    }
+    public function tujuanDisposisi()
+    {
+        return $this->belongsTo(Employee::class, 'tujuan_disposisi', 'id');
+    }
+
     public function tujuan_disposisi()
     {
         return $this->belongsTo(Employee::class, 'tujuan_disposisi', 'id');

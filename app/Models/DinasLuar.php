@@ -9,8 +9,10 @@ class DinasLuar extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'employee_name',
-        'position'
-    ];
+    // protected $fillable = [
+    //     'employee_name',
+    //     'position'
+    // ];
+
+    protected $guarded = [];
 }

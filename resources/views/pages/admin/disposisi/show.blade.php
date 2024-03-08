@@ -61,33 +61,41 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td>{{ $item->letter->regarding }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Status</th>
                                         <td>{{ $item->status }}</td>
                                     </tr>
                                     <tr>
                                         <th>Sifat</th>
                                         <td>{{ $item->sifat }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     {{-- <tr>
                                         <th>Petunjuk</th>
                                         <td>{{ $item->petunjuk }}</td>
                                     </tr> --}}
-                                    <tr>
+                                    {{-- <tr>
                                         <th>Tujuan Disposisi</th>
                                         <td>{{ $item->letter->disposisi }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
-                                        <th>Catatan Rektor</th>
+                                        <th>Isi Disposisi / Eskalasi</th>
                                         <td>{{ $item->isi_disposisi }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Kepada</th>
-                                        <td>{{ $item->kepada }}</td>
+                                        <th>Asal Unit</th>
+                                        <td>{{ $item->asalDisposisi->department->name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Penerima Disposisi / Eskalasi</th>
-                                        <td>{{ $item->tujuan_disposisi->nama}}</td>
+                                        <th>Asal Direksi / Karyawan </th>
+                                        <td>{{ $item->asalDisposisi->nama}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tujuan Unit</th>
+                                        <td>{{ $item->tujuanDisposisi->department->name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tujuan Direksi / Karyawan</th>
+                                        <td>{{ $item->tujuanDisposisi->nama}}</td>
                                     </tr>
                                 </tbody>
                             </table>

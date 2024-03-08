@@ -51,6 +51,7 @@ class LetterController extends Controller
             'employees_id_destination' => 'required',
             'letter_file' => 'required|mimes:pdf|file',
             'letter_type' => 'required',
+            'status_surat' => ''
         ]);
         // $validateData['sender_name_external'] = $request->input('sender_name_external');
         // $validateData['sender_name'] = $request->input('sender_name');
@@ -66,6 +67,7 @@ class LetterController extends Controller
         if ($validatedData['letter_type'] == 'Surat Masuk') {
             $redirect = 'surat-masuk';
         }
+        $validatedData['status_surat'] = 0;
         // $validatedData['status_condition'] = $request->input('status_condition', 0);
         Letter::create($validatedData);
         // Employee::create($validateData);
@@ -106,7 +108,7 @@ class LetterController extends Controller
                             <i class="fas fa-paper-plane"></i> &nbsp; Disposisi
                         </a>
                         </a>
-                            <a class="btn btn-dark btn-xs" href="' . route('letter.edit', $item->id) . '" data-bs-toggle="modal" data-bs-target="#createModal">
+                            <a class="btn btn-dark btn-xs" href="' . route('letter.edit', $item->id) . '" data-bs-toggle="modal" data-bs-target="#createModalTindak">
                             <i class="fas fa-check-circle"></i> &nbsp; Tindak Lanjut
                         </a>
                         <form action="' . route('deletes-surat', $item->id) .  'onsubmit="return confirm(' . "'Anda akan menghapus item ini dari situs anda?'" . ')">
@@ -151,6 +153,20 @@ class LetterController extends Controller
             'letters' => $letters
         ]);
         // return response()->json(['letters' => $letters]);
+    }
+
+    public function status(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Letter::select('*');
+            return DataTables::of($data)
+                ->addColumn('status_surat', function ($row) {
+                    // Menggunakan accessor yang telah dibuat
+                    return $row->status_surat;
+                })
+                ->rawColumns(['status_surat'])
+                ->make(true);
+        }
     }
 
     public function show($id)
@@ -246,6 +262,31 @@ class LetterController extends Controller
             ->with('success', 'Sukses! 1 Data Berhasil Dihapus');
     }
 
+    public function disposisi_button(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'status_surat' => '',
+        ]);
+        $letter = Letter::findOrFail($validatedData['status_surat']);
+        $letter->status_surat = $request->status_surat;
+        $letter->save();
+        // Letter::where('id', $id)->update(['status_surat' => 1]);
+        // return response()->json(['']);
+        // return redirect()
+        //     ->with('success', 'Sukses! 1 Data Berhasil Dihapus');
+
+        // return response()->json([['items' => $letter]]);
+    }
+    public function eskalasi_button($id, Request $request)
+    {
+        $validatedData = $request->validate([
+            'status_surat' => '',
+        ]);
+        $letter = Letter::findOrFail($validatedData['status_surat']);
+        $letter->status_surat = 2;
+        $letter->save();
+    }
+
     public function destroy($id)
     {
         $item = Letter::findorFail($id);
@@ -305,9 +346,15 @@ class LetterController extends Controller
         $departments = Department::all();
         $employees = Employee::all();
 
+        $letters = Letter::with(['employee', 'employee.department'])
+            ->where('letter_type', 'Surat Masuk')
+            ->Where('status_condition', 1)
+            ->get();
+
         return view('pages.admin.letter.incoming', [
             'departments' => $departments,
-            'employees' => $employees
+            'employees' => $employees,
+            'letters' => $letters
         ]);
     }
     public function check_nomor_surat(Request $request)

@@ -41,7 +41,7 @@ Tambah Surat
         <form action="<?php echo e(route('letter.store')); ?>" method="post" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="row gx-4">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <div class="card mb-4">
                         <div class="card-header">Form Surat</div>
                         <div class="card-body">

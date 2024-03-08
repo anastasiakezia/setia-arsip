@@ -37,7 +37,6 @@ Surat Disposisi
                                 Cetak Laporan
                             </a>
                         </div>
-
                     </div>
                     <div class="card-body">
                         
@@ -70,6 +69,7 @@ Surat Disposisi
                                         <th>Tujuan Unit</th>
                                         <th>Tujuan Direksi / Karyawan</th>  
                                         <th>Isi Disposisi</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>              
                                     </tr>
                                 </thead>
@@ -125,13 +125,37 @@ Surat Disposisi
                 // label:'isi_disposisi'
             },
             {
+                data: 'status_surat',
+                render: function(data){
+                        // return data == '0' ? 'Disposisi' : 'Eskalasi';
+                        if(data == '0'){
+                            return '<span style="color:blue;">Disposisi</span>';
+                        }if(data == '1'){
+                            return '<span style="color:green;">Eskalasi</span>';
+                        }
+                    },
+                // render: function (data, type, row){
+                //     var color = 'black';
+                //     if(data == '0'){
+                //         return "Disposisi";
+                //         color = 'green';
+                //     }if (data == '1'){
+                //         return "Eskalasi";
+                //         color = 'blue';
+                //     }
+                //     return '<span style="color:' + color + '">' + data + '</span>';
+                // }
+            },
+            {
                 data: 'action',
                 name: 'action',
                 orderable: false,
                 searcable: false,
                 width: '15%'
             },
-        ]
+        ],
+        columnDefs: [{target: 3,
+        }]
     });
 </script>
 <?php $__env->stopPush(); ?>

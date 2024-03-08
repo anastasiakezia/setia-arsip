@@ -55,6 +55,10 @@ Route::prefix('admin')
         Route::get('letter/surat-masuk/surat-terhapus/{status_condition}', [LetterController::class, 'incoming_mail_delete'])->name('surat-masuk-terhapus');
         Route::get('letter/check_no_surat', [LetterController::class, 'check_nomor_surat']);
         Route::get('letter/show', [LetterController::class, 'incoming_mail']);
+        Route::get('/letter/status_surat', [LetterController::class, 'status_surat']);
+        Route::patch('disposisi/{id}', [LetterController::class, 'disposisi_button'])->name('disposisi_button');
+        Route::patch('eskalasi/{id}', [LetterController::class, 'eskalasi_button'])->name('eskalasi_button');
+
         // letterout / surat keluar
         Route::resource('/letterout', LetteroutController::class, ['except' => ['show']]);
         Route::get('letterout/surat-keluar', [LetteroutController::class, 'outgoing_mail'])->name('surat-keluar');

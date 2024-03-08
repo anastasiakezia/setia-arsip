@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\DinasLuar;
+use App\Models\Department;
+
 use Illuminate\Http\Request;
 
 class DinasLuarController extends Controller
@@ -26,7 +29,11 @@ class DinasLuarController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.dinasLuar.create');
+        $departments = Department::all();
+
+        return view('pages.admin.dinasLuar.create', [
+            'departments' => $departments
+        ]);
     }
 
     /**

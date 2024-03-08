@@ -58,30 +58,28 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td><?php echo e($item->letter->regarding); ?></td>
                                     </tr>
-                                    <tr>
-                                        <th>Status</th>
-                                        <td><?php echo e($item->status); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sifat</th>
-                                        <td><?php echo e($item->sifat); ?></td>
-                                    </tr>
+                                    
+                                    
                                     
                                     <tr>
-                                        <th>Tujuan Disposisi</th>
-                                        <td><?php echo e($item->letter->disposisi); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Catatan Rektor</th>
+                                        <th>Isi Disposisi / Eskalasi</th>
                                         <td><?php echo e($item->isi_disposisi); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Kepada</th>
-                                        <td><?php echo e($item->kepada); ?></td>
+                                        <th>Asal Unit</th>
+                                        <td><?php echo e($item->asalDisposisi->department->name); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Penerima Disposisi / Eskalasi</th>
-                                        <td><?php echo e($item->tujuan_disposisi->nama); ?></td>
+                                        <th>Asal Direksi / Karyawan </th>
+                                        <td><?php echo e($item->asalDisposisi->nama); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tujuan Unit</th>
+                                        <td><?php echo e($item->tujuanDisposisi->department->name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tujuan Direksi / Karyawan</th>
+                                        <td><?php echo e($item->tujuanDisposisi->nama); ?></td>
                                     </tr>
                                 </tbody>
                             </table>
