@@ -44,11 +44,6 @@ Detail Surat
                                         <th>Tanggal Surat</th>
                                         <td>{{ Carbon\Carbon::parse($item->letter->letter_date)->translatedFormat('l, d F Y') }}</td>
                                     </tr>
-                                    {{-- <tr>
-                                        <th>Lampiran</th>
-                                        <td>{{ $item->lampiran }}</td>
-                                    </tr> --}}
-                                    <tr>
                                     <tr>
                                         <th>Sifat Surat</th>
                                         <td>{{ $item->letter->letter_char }}</td>
@@ -61,22 +56,6 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td>{{ $item->letter->regarding }}</td>
                                     </tr>
-                                    {{-- <tr>
-                                        <th>Status</th>
-                                        <td>{{ $item->status }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sifat</th>
-                                        <td>{{ $item->sifat }}</td>
-                                    </tr> --}}
-                                    {{-- <tr>
-                                        <th>Petunjuk</th>
-                                        <td>{{ $item->petunjuk }}</td>
-                                    </tr> --}}
-                                    {{-- <tr>
-                                        <th>Tujuan Disposisi</th>
-                                        <td>{{ $item->letter->disposisi }}</td>
-                                    </tr> --}}
                                     <tr>
                                         <th>Isi Disposisi / Eskalasi</th>
                                         <td>{{ $item->isi_disposisi }}</td>
@@ -111,7 +90,6 @@ Detail Surat
                             <i class="fa fa-download" aria-hidden="true"></i> &nbsp; Download Surat
                         </a>
                     </div>
-
                     <div class="card-body">
                         <div class="mb-3 row">
                             <embed src="{{ Storage::url($item->letter->letter_file) }}" width="500" height="375" type="application/pdf">

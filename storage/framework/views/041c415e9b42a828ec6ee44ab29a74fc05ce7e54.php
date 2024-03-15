@@ -127,24 +127,12 @@ Surat Disposisi
             {
                 data: 'status_surat',
                 render: function(data){
-                        // return data == '0' ? 'Disposisi' : 'Eskalasi';
-                        if(data == '0'){
-                            return '<span style="color:blue;">Disposisi</span>';
-                        }if(data == '1'){
-                            return '<span style="color:green;">Eskalasi</span>';
-                        }
-                    },
-                // render: function (data, type, row){
-                //     var color = 'black';
-                //     if(data == '0'){
-                //         return "Disposisi";
-                //         color = 'green';
-                //     }if (data == '1'){
-                //         return "Eskalasi";
-                //         color = 'blue';
-                //     }
-                //     return '<span style="color:' + color + '">' + data + '</span>';
-                // }
+                    if(data == '0'){
+                        return '<span style="color:blue;">Disposisi</span>';
+                    }if(data == '1'){
+                        return '<span style="color:green;">Eskalasi</span>';
+                    }
+                },
             },
             {
                 data: 'action',

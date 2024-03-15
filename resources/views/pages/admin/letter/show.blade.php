@@ -35,8 +35,7 @@ Detail Surat
                     <div class="card-body">
                         <div class="mb-3 row">
                             <table class="table">
-                                <tbody>
-              
+                                <tbody>              
                                     <tr>
                                         <th>Jenis Surat</th>
                                         <td>{{ $item->letter_type }}</td>
@@ -65,10 +64,6 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td>{{ $item->regarding }}</td>
                                     </tr>
-                                    {{-- <tr>
-                                        <th>Tujuan Disposisi</th>
-                                        <td>{{ $item->disposisi }}</td>
-                                    </tr> --}}
                                     <tr>
                                         @if ($item->PengirimUnitInternal)
                                             @if($item->sender_type == "Internal")
@@ -111,7 +106,7 @@ Detail Surat
                     </div>
                     <div class="card-body">
                         <div class="mb-3 row">
-                            <embed src="{{ Storage::url($item->letter_file) }}" width="500" height="375" type="application/pdf">
+                            <iframe src="{{ Storage::url($item->letter_file) }}" width="500" height="375" type="application/pdf">
                         </div>
                     </div>
                 </div>

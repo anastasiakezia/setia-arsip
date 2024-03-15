@@ -41,7 +41,7 @@ Tambah Laporan Dinas Luar
         <form action="{{ route('letterout.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row gx-4">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="card mb-4">
                         <div class="card-header">Form Laporan Dinas Luar</div>
                         <div class="card-body">
@@ -72,67 +72,31 @@ Tambah Laporan Dinas Luar
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <div class="col-md-12">
-                                    <label for="post_id"><b>Asal Unit</b></label>
-                                    <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
-                                        <option>== Pilih Unit ==</option>
-                                            @foreach ($departments as $department)
-                                            <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
-                                            @endforeach
+                            <div class="mb-3 row">
+                                <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit<b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                        <option value="">Pilih Unit...</option>
+                                        @foreach ($departments as $department)
+                                        {{-- <option value="{{ $department->id }}" {{ (old('unit_tujuan') == $department->id)? 'selected':''; }}>{{ $department->name }}</option> --}}
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="letterout_type" class="col-sm-3 col-form-label">Jabatan <b style="color: red">*</b></label>
+                                <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Nama Direksi / Karyawan <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="letterout_type" class="form-control" id="letterout_type" required>
-                                        <option value="">Pilih Jenis Surat Keluar..</option>
-                                        <option value="Surat Edaran">Surat Edaran</option>
-                                        <option value="Surat Pemberitahuan">Surat Pemberitahuan</option>
-                                        <option value="Surat Permohonan">Surat Permohonan</option>
-                                        <option value="Surat Keterangan">Surat Keterangan</option>
-                                        <option value="Surat Tugas">Surat Tugas</option>
-                                        <option value="Surat Rekomendasi">Surat Rekomendasi</option>
-                                        <option value="Surat Kuasa">Surat Kuasa</option>
-                                        <option value="Pakta Integritas">Pakta Integritas</option>
-                                        <option value="Surat Balasan/Tindak Lanjut">Surat Balasan/Tindak Lanjut</option>
+                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
+                                        <option selected disabled>..Nama Direksi / Karyawan...</option>
                                     </select>
                                 </div>
-                                @error('letter_char')
+                                @error('employees_id_destination')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
                                 @enderror
                             </div>
-                            <div class="mb-3 row">
-                                <label for="letterout_char" class="col-sm-3 col-form-label">Unit <b style="color: red">*</b></label>
-                                <div class="col-sm-9">
-                                    <select name="letterout_char" class="form-control" id="letterout_char" required>
-                                        <option value="">Pilih Sifat Surat..</option>
-                                        <option value="Biasa">Biasa</option>
-                                        <option value="Penting">Penting</option>
-                                        <option value="Rahasia">Rahasia</option>
-                                        <option value="Segera">Segera</option>
-                                    </select>
-                                </div>
-                                @error('letterout_char')
-                                <div class="invalid-feedback">
-                                    {{ $message; }}
-                                </div>
-                                @enderror
-                            </div>
-                            {{-- <div class="mb-3 row">
-                                <label for="regarding" class="col-sm-3 col-form-label">Perihal</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('regarding') is-invalid @enderror" value="{{ old('regarding') }}" name="regarding" placeholder="Perihal.." required>
-                                </div>
-                                @error('regarding')
-                                <div class="invalid-feedback">
-                                    {{ $message; }}
-                                </div>
-                                @enderror
-                            </div> --}}
                             <div class="mb-3 row">
                                 <label for="letter_file" class="col-sm-3 col-form-label">Surat Tugas <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
@@ -158,7 +122,7 @@ Tambah Laporan Dinas Luar
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain <b style="color: red">*</b></label>
+                                <label for="letter_file" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain</label>
                                 <div class="col-sm-9">
                                     <input type="file" class="form-control @error('letter_file') is-invalid @enderror" value="{{ old('letter_file') }}" name="letter_file" required>
                                     <div id="letter_file" class="form-text">Ekstensi .pdf</div>
@@ -194,6 +158,31 @@ Tambah Laporan Dinas Luar
 <script>
     $(".selectx").select2({
         theme: "bootstrap-5"
+    });
+
+    $(document).ready(function(){
+        $('#unit_id').change(function() {
+            var id = $(this).val();
+            // if (id) {
+                $.ajax({
+                    type: "GET",
+                    // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                    url:'{{ route('karyawan.dropdown') }}',
+                    data:{id:id},
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response) {
+                            $("#kepada").empty();
+                            $("#kepada").append('<option>...Surat ditujukan ke...</option>');
+                            $.each(response, function(id, value) {
+                                $("#kepada").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                            });
+                        } else {
+                            $("#kepada").empty();
+                        }
+                    }
+            });
+        });
     });
 </script>
 @endpush

@@ -179,7 +179,7 @@ Tambah Surat
                             <div class="mb-3 row" id="pengirim_internal_unit" style="display: none">
                                 <label for="unit_sender_internal" class="col-sm-3 col-form-label">Unit Pengirim<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="pengirim_unit_internal" id="unit_pengirim" class="form-control">
+                                    <select name="pengirim_unit_internal" id="unit_pengirim" class="form-control single-select-field">
                                         <option value="">Pilih Unit Pengirim...</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('pengirim_unit_internal') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
@@ -195,7 +195,7 @@ Tambah Surat
                             <div class="mb-3 row" id ="pengirim_internal_karyawandireksi" style="display: none">
                                 <label for="sender_name" class="col-sm-3 col-form-label">Pengirim <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="sender_name" id="karyawandireksi_pengirim" class="form-control">
+                                    <select name="sender_name" id="karyawandireksi_pengirim" class="form-control single-select-field">
                                         <option selected disabled>..Nama Pengirim...</option>
                                     </select>
                                 </div>
@@ -217,7 +217,7 @@ Tambah Surat
                             <div class="mb-3 row">
                                 <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit Tujuan<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control single-select-field" required>
                                         <option value="">Pilih Unit Tujuan...</option>
                                         @foreach ($departments as $department)
                                         {{-- <option value="{{ $department->id }}" {{ (old('unit_tujuan') == $department->id)? 'selected':''; }}>{{ $department->name }}</option> --}}
@@ -234,7 +234,7 @@ Tambah Surat
                             <div class="mb-3 row">
                                 <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Kepada <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
+                                    <select name="employees_id_destination" id="kepada" class="form-control single-select-field" required>
                                         <option selected disabled>..Surat ditujukan ke...</option>
                                     </select>
                                 </div>
@@ -289,17 +289,21 @@ Tambah Surat
 
 @push('addon-style')
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" /> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" /> --}}
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" /> --}}
+
 @endpush
 
 @push('addon-script')
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 <script>
-    $(".selectx").select2({
-        theme: "bootstrap-5"
-    });
-
 //TUJUAN
     $(document).ready(function(){
         $('#unit_id').change(function() {
@@ -312,6 +316,7 @@ Tambah Surat
                     data:{id:id},
                     dataType: 'JSON',
                     success: function(response) {
+                        // select.attr('placeholder','')
                         if (response) {
                             $("#kepada").empty();
                             $("#kepada").append('<option>...Surat ditujukan ke...</option>');
@@ -322,23 +327,13 @@ Tambah Surat
                             $("#kepada").empty();
                         }
                     }
-            });
+            });   
+        });
+        $('.single-select-field').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
         });
     });
-
-    // bagian pengirim surat
-    // $(document).ready(function(){
-    //     $('#jenis_pengirim').change(function() {
-    //         var point = $(this).val();
-    //         if(point == "Eksternal"){
-    //             $('#after_jenis_surat_filled').html(
-    //                 '<div class="mb-3 row"><label for="sender_name" class="col-sm-3 col-form-label">Pengirim Surat<b style="color: red">*</b></label><div class="col-sm-9"><input input="text" class="form-control"></input></div></div>'
-    //             );
-    //         }else if(point == "Internal"){
-    //             $('#after_jenis_surat_filled').html('<div class="col-sm-9"><select><option value=1>satu</option></select></div>');
-    //         }
-    //     });
-    // });
 
     // bagian pengirim surat
     $(document).ready(function(){
@@ -374,7 +369,6 @@ Tambah Surat
                     });
                 })
             }
-
         });
     });
 </script>

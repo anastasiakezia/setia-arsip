@@ -41,7 +41,7 @@ Tambah Laporan Dinas Luar
         <form action="<?php echo e(route('letterout.store')); ?>" method="post" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="row gx-4">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="card mb-4">
                         <div class="card-header">Form Laporan Dinas Luar</div>
                         <div class="card-body">
@@ -95,34 +95,26 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
-                            <div class="mb-3">
-                                <div class="col-md-12">
-                                    <label for="post_id"><b>Asal Unit</b></label>
-                                    <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
-                                        <option>== Pilih Unit ==</option>
-                                            <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($department->id); ?>" <?php echo e((old('department_id') == $department->id)? 'selected':''); ?>><?php echo e($department->name); ?></option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <div class="mb-3 row">
+                                <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit<b style="color: red">*</b></label>
+                                <div class="col-sm-9">
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                        <option value="">Pilih Unit...</option>
+                                        <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        
+                                        <option value="<?php echo e($department->id); ?>"><?php echo e($department->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="letterout_type" class="col-sm-3 col-form-label">Jabatan <b style="color: red">*</b></label>
+                                <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Nama Direksi / Karyawan <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="letterout_type" class="form-control" id="letterout_type" required>
-                                        <option value="">Pilih Jenis Surat Keluar..</option>
-                                        <option value="Surat Edaran">Surat Edaran</option>
-                                        <option value="Surat Pemberitahuan">Surat Pemberitahuan</option>
-                                        <option value="Surat Permohonan">Surat Permohonan</option>
-                                        <option value="Surat Keterangan">Surat Keterangan</option>
-                                        <option value="Surat Tugas">Surat Tugas</option>
-                                        <option value="Surat Rekomendasi">Surat Rekomendasi</option>
-                                        <option value="Surat Kuasa">Surat Kuasa</option>
-                                        <option value="Pakta Integritas">Pakta Integritas</option>
-                                        <option value="Surat Balasan/Tindak Lanjut">Surat Balasan/Tindak Lanjut</option>
+                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
+                                        <option selected disabled>..Nama Direksi / Karyawan...</option>
                                     </select>
                                 </div>
-                                <?php $__errorArgs = ['letter_char'];
+                                <?php $__errorArgs = ['employees_id_destination'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -136,32 +128,6 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
-                            <div class="mb-3 row">
-                                <label for="letterout_char" class="col-sm-3 col-form-label">Unit <b style="color: red">*</b></label>
-                                <div class="col-sm-9">
-                                    <select name="letterout_char" class="form-control" id="letterout_char" required>
-                                        <option value="">Pilih Sifat Surat..</option>
-                                        <option value="Biasa">Biasa</option>
-                                        <option value="Penting">Penting</option>
-                                        <option value="Rahasia">Rahasia</option>
-                                        <option value="Segera">Segera</option>
-                                    </select>
-                                </div>
-                                <?php $__errorArgs = ['letterout_char'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <div class="invalid-feedback">
-                                    <?php echo e($message); ?>
-
-                                </div>
-                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                            </div>
-                            
                             <div class="mb-3 row">
                                 <label for="letter_file" class="col-sm-3 col-form-label">Surat Tugas <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
@@ -217,7 +183,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain <b style="color: red">*</b></label>
+                                <label for="letter_file" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain</label>
                                 <div class="col-sm-9">
                                     <input type="file" class="form-control <?php $__errorArgs = ['letter_file'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -269,6 +235,35 @@ unset($__errorArgs, $__bag); ?>
     $(".selectx").select2({
         theme: "bootstrap-5"
     });
+
+    $(document).ready(function(){
+        $('#unit_id').change(function() {
+            var id = $(this).val();
+            // if (id) {
+                $.ajax({
+                    type: "GET",
+                    // url: 'http://setia-arsip.test/admin/karyawan-dropdown',
+                    url:'<?php echo e(route('karyawan.dropdown')); ?>',
+                    data:{id:id},
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response) {
+                            $("#kepada").empty();
+                            $("#kepada").append('<option>...Surat ditujukan ke...</option>');
+                            $.each(response, function(id, value) {
+                                $("#kepada").append('<option value="' + value.id + '">' + value.nama + ' - '+value.position+'</option>');
+                            });
+                        } else {
+                            $("#kepada").empty();
+                        }
+                    }
+            });
+        });
+    });
+
+
+
+
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\setia-arsip\resources\views/pages/admin/dinasLuar/create.blade.php ENDPATH**/ ?>

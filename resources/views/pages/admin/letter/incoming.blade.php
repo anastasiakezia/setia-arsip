@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 
 @section('title')
 Surat Masuk
@@ -79,7 +79,6 @@ Surat Masuk
                                         {{-- <th>Direksi/Karyawan Pengirim</th> --}}
                                         {{-- <th>Unit Tujuan</th> --}}
                                         <th>Direksi / Karyawan Tujuan</th>
-                                        {{-- <th>Status</th>--}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -92,17 +91,17 @@ Surat Masuk
         </div>
     </div>
     {{-- Modal Add Disposisi--}}
-    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow-auto;">
-        <div class="modal-dialog" role="document" style="max-width:64%">
+    <div class="modal fade" id="createModal" role="dialog" aria-labelledby="createModal" aria-hidden="true" style="overflow-auto;" data-focus="false">
+        <div class="modal-dialog modal-xl" role="document" style="max-width:64%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModal">Tambah Disposisi / Eskalasi</h5>
+                    <h5 class="modal-title" id="createModalDisposisi">Tambah Disposisi / Eskalasi</h5>
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
                 <form action="{{ route('disposisi.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-body overflow-auto">
+                    <div class="modal-body overflow-auto" >
                         <div class="mb-3">
                             <div class="col-md-12">
                                 @foreach ($letters as $letter)
@@ -134,7 +133,7 @@ Surat Masuk
                         <div class="mb-3">
                             <div class="col-md-12">
                                 <label for="post_id"><b>Asal Unit</b></label>
-                                <select class="form-control" id="asal_unit" data-placeholder="pilih unit" required>
+                                <select class="form-control single-select-field" id="asal_unit" data-placeholder="pilih unit" required style=" margin-top: 336px;">
                                     <option>== Pilih Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
@@ -143,11 +142,12 @@ Surat Masuk
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div class="col-md-12" style="margin-bottom:30px">
+                            <div class="col-md-12" style="margin-bottom:30px" >
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
-                                <select class="form-control" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>                                    <option>== Pilih Direksi / Karyawan ==</option>
+                                <select class="form-control single-select-field" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>                                    
+                                    <option>== Pilih Direksi / Karyawan ==</option>
                                         {{-- @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}" {{ (old('department_id') == $employee->id)? 'selected':''; }}>{{ $employee->employee_name }} - {{ $employee->position }}</option>
                                         @endforeach --}}
@@ -164,7 +164,8 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Tujuan Unit</b></label>
-                                <select class="form-control" id="tujuan_disposisi" data-placeholder="pilih unit" required style="width: 100%">                                    <option>== Tujuan Unit ==</option>
+                                <select class="form-control single-select-field" id="tujuan_disposisi" data-placeholder="pilih unit" required>                                    
+                                        <option>== Tujuan Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
                                         @endforeach
@@ -176,7 +177,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
-                                <select class="form-control" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
+                                <select class="form-control single-select-field" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
                                     <option>---Pilih Direksi / Karyawan---</option>
                                     {{-- <option>== Pilih Direksi / Karyawan ==</option> --}}
                                         {{-- @foreach ($departments as $department)
@@ -218,7 +219,7 @@ Surat Masuk
                 </div>
                 <form action="{{ route('disposisi.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-body overflow-auto">
+                    <div class="modal-body overflow-auto" >
                         <div class="mb-3">
                             <div class="col-md-12">
                                 @foreach ($letters as $letter)
@@ -236,7 +237,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Unit</b></label>
-                                <select class="form-control" id="asal_unit_tindakLanjut" data-placeholder="pilih unit" required>
+                                <select class="form-control single-select-field" id="asal_unit_tindakLanjut" data-placeholder="pilih unit" required>
                                     <option>== Pilih Unit ==</option>
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}" {{ (old('department_id') == $department->id)? 'selected':''; }}>{{ $department->name }}</option>
@@ -254,7 +255,7 @@ Surat Masuk
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
                                 <label for="post_id"><b>Direksi / Karyawan</b></label>
-                                <select class="form-control" name="asal_disposisi" id="asal_direksi_karyawan_tindak_lanjut" data-placeholder="pilih unit" required>                                    <option>== Pilih Direksi / Karyawan ==</option>
+                                <select class="form-control single-select-field" name="asal_disposisi" id="asal_direksi_karyawan_tindak_lanjut" data-placeholder="pilih unit" required>                                    <option>== Pilih Direksi / Karyawan ==</option>
                                         {{-- @foreach ($employees as $employee)
                                         <option value="{{ $employee->id }}" {{ (old('department_id') == $employee->id)? 'selected':''; }}>{{ $employee->employee_name }} - {{ $employee->position }}</option>
                                         @endforeach --}}
@@ -284,8 +285,17 @@ Surat Masuk
     </div>
     {{-- End Modal Tindak Lanjut --}}
 </main>
-
 @endsection
+
+@push('addon-style')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" /> --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" /> --}}
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" /> --}}
+@endpush
+
 
 @push('addon-script')
 <script>
@@ -364,8 +374,15 @@ Surat Masuk
             },
         ]
     }); 
-    
-        $('#tujuan_disposisi').change(function() {
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script>
+    $('#tujuan_disposisi').change(function() {
             var id = $(this).val();
             // if (id) {
                 $.ajax({
@@ -416,8 +433,11 @@ Surat Masuk
             // }
         });
     });
+    // $('#createModalDisposisi').on('shown.bs.modal', function () {
+    // });
+    
 
-       // yang buat asal direksi dan unit (bagian tindak lanjut)
+    // yang buat asal direksi dan unit (bagian tindak lanjut)
     $(document).ready(function(){
         $('#asal_unit_tindakLanjut').change(function() {
             var id = $(this).val();
@@ -440,40 +460,47 @@ Surat Masuk
                         }
                     }
                 });
-            // } else {
-            //     $("#direksi_tujuan").empty();
-            // }
         });
     });
 
-    // untuk geser-geser tabel
-    // $(document).ready(function(){
-    //     // var scrollBody = $('#crudTable');
-    //     // var dataTable = $('#crudTable').DataTable();
-
-    //     $('#kanan').click(function() {
-    //         var scrollBody = $('#crudTable').closest('.dataTables_scrollBody');
-    //         var currentScrollLeft = scrollBody.scrollLeft();
-    //         scrollBody.scrollLeft(currentScrollLeft + 100); // Geser 50 piksel ke kiri
-    //     });
-    // });
-
-    $(document).keydown(function(e) {
-        var tableContainer = $(".dataTables_scrollBody"); // class untuk scrollable area di DataTables
-
-        switch(e.which) {
-            case 37: // left
-                tableContainer.scrollLeft(tableContainer.scrollLeft() - 100);
-                break;
-
-            case 39: // right
-                tableContainer.scrollLeft(tableContainer.scrollLeft() + 100);
-                break;
-
-            default: return; // exit this handler for other keys
-        }
-        e.preventDefault(); // prevent the default action (scroll / move caret)
-    });
+    // SEARCH DROPDOWN
+    $(document).ready(function(){
+        $('#createModal').on('shown.bs.modal', function (){
+            $('#asal_unit').select2({
+                dropdownParent: $('#createModal .modal-body'),
+                dropdownAutoWidth: true,
+                dropdownCssClass: 'force-dropdown-to-bottom',
+                dropdownPosition: 'below',
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            });
+            $('#asal_direksi_karyawan').select2({
+                dropdownParent: $('#createModal .modal-body'),
+                dropdownAutoWidth: true,
+                dropdownCssClass: 'force-dropdown-to-bottom',
+                dropdownPosition: 'below',
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            });
+            $('#tujuan_disposisi').select2({
+                dropdownParent: $('#createModal .modal-body'),
+                dropdownAutoWidth: true,
+                dropdownCssClass: 'dropdown-static',
+                dropdownPosition: 'below',
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            });
+            $('#direksi_tujuan').select2({
+                dropdownParent: $('#createModal .modal-body'),
+                dropdownAutoWidth: true,
+                dropdownCssClass: 'dropdown-static',
+                dropdownPosition: 'below',
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            });
+        });
+        });
+    // END SEARCH DROPDOWN
 
 </script>
 @endpush

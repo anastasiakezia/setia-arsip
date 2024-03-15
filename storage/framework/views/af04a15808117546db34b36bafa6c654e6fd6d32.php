@@ -35,8 +35,7 @@ Detail Surat
                     <div class="card-body">
                         <div class="mb-3 row">
                             <table class="table">
-                                <tbody>
-              
+                                <tbody>              
                                     <tr>
                                         <th>Jenis Surat</th>
                                         <td><?php echo e($item->letter_type); ?></td>
@@ -65,7 +64,6 @@ Detail Surat
                                         <th>Perihal</th>
                                         <td><?php echo e($item->regarding); ?></td>
                                     </tr>
-                                    
                                     <tr>
                                         <?php if($item->PengirimUnitInternal): ?>
                                             <?php if($item->sender_type == "Internal"): ?>
@@ -108,7 +106,7 @@ Detail Surat
                     </div>
                     <div class="card-body">
                         <div class="mb-3 row">
-                            <embed src="<?php echo e(Storage::url($item->letter_file)); ?>" width="500" height="375" type="application/pdf">
+                            <iframe src="<?php echo e(Storage::url($item->letter_file)); ?>" width="500" height="375" type="application/pdf">
                         </div>
                     </div>
                 </div>
