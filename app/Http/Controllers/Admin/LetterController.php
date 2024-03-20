@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Employee;
 use App\Models\Department;
+use App\Models\Disposisi;
 use App\Models\Letter;
 use App\Models\Sender;
 
@@ -148,11 +149,14 @@ class LetterController extends Controller
             ->Where('status_condition', 0)
             ->get();
 
+        $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->get();
+
         return view('pages.admin.letter.incoming', [
             'departments' => $departments,
-            'letters' => $letters
+            'letters' => $letters,
+            'items' => $item
         ]);
-        // return response()->json(['letters' => $letters]);
+        // return response()->json(['items' => $item]);
     }
 
     public function status(Request $request)
@@ -212,19 +216,19 @@ class LetterController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'letter_no' => 'required|unique:letters',
+            'letter_no' => '',
             'letter_date' => 'required',
             'letter_char' => 'required',
             'sender_type' => 'required',
-            'letter_name' => 'required',
+            'letter_name' => '',
             'regarding' => 'required',
-            'disposisi' => 'required',
+            'disposisi' => '',
             'sender_type' => 'required',
             'letter_name' => 'required',
             'pengirim_unit_internal' => '',
             'employees_id_destination' => 'required',
-            'sender_name' => 'required',
-            'department_id' => 'required',
+            'sender_name' => '',
+            'department_id' => '',
             // 'sender_id' => 'required',
             'letter_file' => 'mimes:pdf|file',
             'letter_type' => 'required',
@@ -363,5 +367,12 @@ class LetterController extends Controller
         $isDuplicate = Letter::where('letter_no', $no_surat)->exists();
 
         return response()->json(['is_duplicate' => $isDuplicate]);
+    }
+    public function getDropdownKaryawan($pengirim_unit_internal)
+    {
+        $karyawan = Employee::where('departments_id', $pengirim_unit_internal)->get();
+
+        // return view('pages.admin.letter.edit', ['karyawan' => $karyawan]);
+        return response()->json(['karyawan' => $karyawan]);
     }
 }

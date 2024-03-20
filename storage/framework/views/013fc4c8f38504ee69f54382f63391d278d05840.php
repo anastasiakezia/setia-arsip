@@ -66,10 +66,7 @@ Laporan Dinas Luar
                                         <th>Nama Petugas</th>
                                         <th>Jabatan</th>
                                         <th>Unit</th>
-                                        <th>Perihal</th>
-                                        <th>Surat Tugas</th>
-                                        <th>Laporan Dinas Luar</th>
-                                        <th>Dokumen Lain</th>
+                                        
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -98,32 +95,32 @@ Laporan Dinas Luar
                 orderable: false,
                 searchable: false
             },
+            // {
+            //     data: 'letter_no',
+            //     name: 'letter_no'
+            // },
             {
-                data: 'letter_no',
-                name: 'letter_no'
-            },
-            {
-                data: 'letter_date',
-                name: 'letter_date',
+                data: 'tanggal_laporan',
+                name: 'tanggal_laporan',
                 width: '10%'
             },
             {
-                data: 'letter_char',
-                name: 'letter_char',
+                data: 'nama_petugas',
+                name: 'nama_petugas',
                 width: '10%'
             },
             {
-                data: 'regarding',
-                name: 'regarding'
+                data: 'jabatan',
+                name: 'jabatan'
             },
             {
-                data: 'sender_name',
-                name: 'sender_name'
+                data: 'unit',
+                name: 'unit'
             },
-            {
-                data: 'disposisi',
-                name: 'disposisi'
-            },
+            // {
+            //     data: 'disposisi',
+            //     name: 'disposisi'
+            // },
             {
                 data: 'action',
                 name: 'action',

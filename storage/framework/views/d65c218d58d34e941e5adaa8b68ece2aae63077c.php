@@ -38,7 +38,7 @@ Tambah Laporan Dinas Luar
             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php endif; ?>
-        <form action="<?php echo e(route('letterout.store')); ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo e(route('dinasLuar.store')); ?>" method="post" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="row gx-4">
                 <div class="col-lg-12">
@@ -98,7 +98,7 @@ unset($__errorArgs, $__bag); ?>
                             <div class="mb-3 row">
                                 <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control  single-select-field" required>
                                         <option value="">Pilih Unit...</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         
@@ -110,7 +110,7 @@ unset($__errorArgs, $__bag); ?>
                             <div class="mb-3 row">
                                 <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Nama Direksi / Karyawan <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
+                                    <select name="employees_id_destination" id="kepada" class="form-control single-select-field" required>
                                         <option selected disabled>..Nama Direksi / Karyawan...</option>
                                     </select>
                                 </div>
@@ -225,17 +225,17 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('addon-style'); ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startPush('addon-script'); ?>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(".selectx").select2({
-        theme: "bootstrap-5"
-    });
 
+<script>
     $(document).ready(function(){
         $('#unit_id').change(function() {
             var id = $(this).val();
@@ -259,11 +259,11 @@ unset($__errorArgs, $__bag); ?>
                     }
             });
         });
+        $('.single-select-field').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+        });
     });
-
-
-
-
 </script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\setia-arsip\resources\views/pages/admin/dinasLuar/create.blade.php ENDPATH**/ ?>

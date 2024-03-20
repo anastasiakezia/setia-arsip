@@ -104,9 +104,9 @@ Surat Masuk
                     <div class="modal-body overflow-auto" >
                         <div class="mb-3">
                             <div class="col-md-12">
-                                @foreach ($letters as $letter)
+                                {{-- @foreach ($letters as $letter)
                                 <input id="edit_modal_form_eskalasi_disposisi" type="hidden" name="letter_id" value={{ $letter->id }}>
-                                @endforeach
+                                @endforeach --}}
                                 <label for="post_id"><b>Jenis Surat</b></label>
                                 <select name="letter_type" class="form-control" required>
                                     <option value="Surat Masuk" {{ (old('letter_type') == 'Surat Masuk')? 'selected':''; }}>Surat Masuk</option>
@@ -115,7 +115,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Pilih Jenis Pengiriman Surat</b></label>
+                                <label for="post_id"><b>Pilih Jenis Pengiriman Surat<b style="color: red">*</b></b></label>
                                 <div class="mb-3">
                                     <div class="col-md-12">
                                         <div class="form-check form-check-inline">
@@ -132,7 +132,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Asal Unit</b></label>
+                                <label for="post_id"><b>Asal Unit</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" id="asal_unit" data-placeholder="pilih unit" required style=" margin-top: 336px;">
                                     <option>== Pilih Unit ==</option>
                                         @foreach ($departments as $department)
@@ -145,7 +145,7 @@ Surat Masuk
                             <div class="col-md-12" style="margin-bottom:30px" >
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
-                                <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
+                                <label for="post_id"><b>Asal Direksi / Karyawan</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>                                    
                                     <option>== Pilih Direksi / Karyawan ==</option>
                                         {{-- @foreach ($employees as $employee)
@@ -163,7 +163,7 @@ Surat Masuk
                             <div class="col-md-12" style="margin-top: 20px">
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
-                                <label for="post_id"><b>Tujuan Unit</b></label>
+                                <label for="post_id"><b>Tujuan Unit</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" id="tujuan_disposisi" data-placeholder="pilih unit" required>                                    
                                         <option>== Tujuan Unit ==</option>
                                         @foreach ($departments as $department)
@@ -176,7 +176,7 @@ Surat Masuk
                             <div class="col-md-12">
                                 {{-- <label for="post_id">Tujuan Disposisi</label>
                                 <input type="text" name="tujuan_disposisi" class="form-control" placeholder="Masukkan Tujuan Disposisi.." required> --}}
-                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
+                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
                                     <option>---Pilih Direksi / Karyawan---</option>
                                     {{-- <option>== Pilih Direksi / Karyawan ==</option> --}}
@@ -193,7 +193,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Isi Disposisi / Eskalasi</b></label>
+                                <label for="post_id"><b>Isi Disposisi / Eskalasi</b><b style="color: red">*</b></label>
                                 {{-- <textarea id="disposisi_desc" class="disposisi-desc" cols="50" rows ="4" name="disposisi_desc" placeholder="Masukan isi Disposisi.." class="form-control" required style="border: 1px solid #cccccc; border-radius:5px;"></textarea> --}}
                                 <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi / Eskalasi.." required style="height: 100px; width:770px;"></textarea>
                             </div>
@@ -469,7 +469,6 @@ Surat Masuk
             $('#asal_unit').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'force-dropdown-to-bottom',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -477,7 +476,6 @@ Surat Masuk
             $('#asal_direksi_karyawan').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'force-dropdown-to-bottom',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -485,7 +483,6 @@ Surat Masuk
             $('#tujuan_disposisi').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'dropdown-static',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -493,7 +490,6 @@ Surat Masuk
             $('#direksi_tujuan').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'dropdown-static',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',

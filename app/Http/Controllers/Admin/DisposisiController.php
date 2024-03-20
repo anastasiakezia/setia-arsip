@@ -32,6 +32,59 @@ class DisposisiController extends Controller
     //     ]);
     // }
 
+    // public function modalContent(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'letter_id' => 'required',
+    //         // 'status' => 'required',
+    //         // 'sifat' => 'required',
+    //         'asal_disposisi' => 'required',
+    //         'tujuan_disposisi' => 'required',
+    //         'isi_disposisi' => 'required',
+    //         'status_surat' => 'required',
+    //         'letter_file' => 'mimes:pdf|file'
+    //     ]);
+
+    //     if ($request->file('letter_file')) {
+    //         $validatedData['letter_file'] = $request->file('letter_file')->store('assets/letter-file');
+    //     }
+    //     // if ($request->input('status')) {
+    //     //     $validatedData['status'] = implode(',', $request->status);
+    //     // }
+    //     // if ($request->input('sifat')) {
+    //     //     $validatedData['sifat'] = implode(',', $request->sifat);
+    //     // }
+
+    //     $validateData['approve_status'] = 0;
+    //     //   ddd($request->all());
+    //     $redirect = 'surat-disposisi';
+
+    //     Disposisi::create($validatedData);
+
+    //     $employees = Employee::all();
+    //     $departments = Department::all();
+    //     $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->get();
+    //     // return view('pages.admin.letter.incoming', [
+    //     //     'item' => $item,
+    //     //     'departments' => $departments,
+    //     //     'employees' => $employees
+    //     // ]);
+
+    //     return view('modal-content', [
+    //         'items' => $item,
+    //         'departments' => $departments,
+    //         'employees' => $employees
+    //     ]);
+
+    //     // return response()->json(['item' => $item]);
+
+    //     return redirect()
+    //         ->route($redirect)
+    //         ->with('success', 'Sukses! 1 Data Berhasil Disimpan');
+
+    //     return view('partial.modal-content-first')->render();
+    // }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -60,6 +113,17 @@ class DisposisiController extends Controller
         $redirect = 'surat-disposisi';
 
         Disposisi::create($validatedData);
+
+        // $employees = Employee::all();
+        // $departments = Department::all();
+        // $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->get();
+        // return view('pages.admin.letter.incoming', [
+        //     'item' => $item,
+        //     'departments' => $departments,
+        //     'employees' => $employees
+        // ]);
+
+        // return response()->json(['item' => $item]);
 
         return redirect()
             ->route($redirect)
@@ -104,6 +168,9 @@ class DisposisiController extends Controller
         $employees = Employee::all();
         $departments = Department::all();
         $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuan_disposisi.department'])->get();
+
+        // $item = Disposisi::with(['letter', 'asalDisposisi', 'tujuanDisposisi', 'tujuanDisposisi.department'])->get();
+
         return view('pages.admin.disposisi.incoming', [
             'item' => $item,
             'departments' => $departments,
@@ -114,7 +181,8 @@ class DisposisiController extends Controller
 
     public function show($id)
     {
-        $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuanDisposisi', 'tujuan_disposisi.department', 'tujuanDisposisi.department'])->findOrFail($id);
+        // $item = Disposisi::with(['letter', 'asal_disposisi', 'asal_disposisi.department', 'tujuan_disposisi', 'tujuanDisposisi', 'tujuan_disposisi.department', 'tujuanDisposisi.department'])->findOrFail($id);
+        $item = Disposisi::with(['letter', 'asalDisposisi', 'tujuanDisposisi', 'tujuanDisposisi.department'])->findOrFail($id);
 
         return view('pages.admin.disposisi.show', [
             'item' => $item,
@@ -137,17 +205,30 @@ class DisposisiController extends Controller
 
     public function edit($id)
     {
-        $item = Disposisi::with(['letter', 'asal_disposisi.department', ''])->findOrFail($id);
+        $item = Disposisi::with(['letter', 'asalDisposisi', 'tujuanDisposisi', 'tujuanDisposisi.department'])->findOrFail($id);
 
         $letters = Letter::all();
         $employees = Employee::all();
+        $departments = Department::all();
 
         return view('pages.admin.disposisi.edit', [
             'letters' => $letters,
             'item' => $item,
-            // 'status' => explode(',', $item->status),
-            // 'sifat' => explode(',', $item->sifat)
+            'departments' => $departments,
+            'employees' => $employees
+            //     // 'status' => explode(',', $item->status),
+            //     // 'sifat' => explode(',', $item->sifat)
         ]);
+
+        // return response()->json(['item' => $item]);
+    }
+
+    public function getDropdownKaryawan($asal_unit)
+    {
+        $karyawan = Employee::where('departments_id', $asal_unit)->get();
+
+        // return view('pages.admin.letter.edit', ['karyawan' => $karyawan]);
+        return response()->json(['karyawan' => $karyawan]);
     }
 
     public function download_letter($id)
@@ -161,8 +242,6 @@ class DisposisiController extends Controller
     {
         $validatedData = $request->validate([
             'letter_id' => 'required',
-            // 'status' => 'required',
-            // 'sifat' => 'required',
             'asal_disposisi' => 'required',
             'tujuan_disposisi' => 'required',
             'isi_disposisi' => 'required',

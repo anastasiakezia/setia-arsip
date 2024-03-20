@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\LetteroutController;
 use App\Http\Controllers\Admin\KaryawanController;
 use App\Models\Department;
+use App\Models\DinasLuar;
+use App\Models\Disposisi;
 use App\Models\Employee;
 use PhpParser\Node\Expr\Print_;
 
@@ -56,8 +58,9 @@ Route::prefix('admin')
         Route::get('letter/check_no_surat', [LetterController::class, 'check_nomor_surat']);
         Route::get('letter/show', [LetterController::class, 'incoming_mail']);
         Route::get('/letter/status_surat', [LetterController::class, 'status_surat']);
-        Route::patch('disposisi/{id}', [LetterController::class, 'disposisi_button'])->name('disposisi_button');
-        Route::patch('eskalasi/{id}', [LetterController::class, 'eskalasi_button'])->name('eskalasi_button');
+        Route::get('employees/{pengirim_unit_internal}', [LetterController::class, 'getDropdownKaryawan'])->name('getDropdownKaryawan');
+        // Route::patch('disposisi/{id}', [LetterController::class, 'disposisi_button'])->name('disposisi_button');
+        // Route::patch('eskalasi/{id}', [LetterController::class, 'eskalasi_button'])->name('eskalasi_button');
 
         // letterout / surat keluar
         Route::resource('/letterout', LetteroutController::class, ['except' => ['show']]);
@@ -72,8 +75,10 @@ Route::prefix('admin')
         Route::resource('/disposisi', DisposisiController::class, ['except' => ['show']]);
         Route::get('disposisi/surat-disposisi', [DisposisiController::class, 'disposisi_form'])->name('surat-disposisi');
         Route::get('disposisi/surat/{id}', [DisposisiController::class, 'show'])->name('detail-disposisi');
+        Route::get('disposisi/{asal_unit}', [DisposisiController::class, 'getDropdownKaryawan'])->name('getDropdownKaryawan');
         // Pelaporan dinas luar
         // Route::get('dinasLuar/dinas-luar', [DinasLuarController::class]);
+        Route::resource('/dinasLuar', DinasLuarController::class, ['except' => ['show']]);
         Route::get('dinasLuar/dinas-luar', [DinasLuarController::class, 'index'])->name('dinas-luar');
         Route::get('dinasLuar/dinas-luar/create', [DinasLuarController::class, 'create'])->name('create');
         //Data Karyawan

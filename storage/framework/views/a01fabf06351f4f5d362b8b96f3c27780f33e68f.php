@@ -105,9 +105,7 @@ Surat Masuk
                     <div class="modal-body overflow-auto" >
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <?php $__currentLoopData = $letters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $letter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <input id="edit_modal_form_eskalasi_disposisi" type="hidden" name="letter_id" value=<?php echo e($letter->id); ?>>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                
                                 <label for="post_id"><b>Jenis Surat</b></label>
                                 <select name="letter_type" class="form-control" required>
                                     <option value="Surat Masuk" <?php echo e((old('letter_type') == 'Surat Masuk')? 'selected':''); ?>>Surat Masuk</option>
@@ -116,7 +114,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Pilih Jenis Pengiriman Surat</b></label>
+                                <label for="post_id"><b>Pilih Jenis Pengiriman Surat<b style="color: red">*</b></b></label>
                                 <div class="mb-3">
                                     <div class="col-md-12">
                                         <div class="form-check form-check-inline">
@@ -133,7 +131,7 @@ Surat Masuk
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Asal Unit</b></label>
+                                <label for="post_id"><b>Asal Unit</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" id="asal_unit" data-placeholder="pilih unit" required style=" margin-top: 336px;">
                                     <option>== Pilih Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -145,7 +143,7 @@ Surat Masuk
                         <div class="mb-3">
                             <div class="col-md-12" style="margin-bottom:30px" >
                                 
-                                <label for="post_id"><b>Asal Direksi / Karyawan</b></label>
+                                <label for="post_id"><b>Asal Direksi / Karyawan</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" name="asal_disposisi" id="asal_direksi_karyawan" data-placeholder="pilih unit" required>                                    
                                     <option>== Pilih Direksi / Karyawan ==</option>
                                         
@@ -168,7 +166,7 @@ unset($__errorArgs, $__bag); ?>
                         <div class="mb-3">
                             <div class="col-md-12" style="margin-top: 20px">
                                 
-                                <label for="post_id"><b>Tujuan Unit</b></label>
+                                <label for="post_id"><b>Tujuan Unit</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" id="tujuan_disposisi" data-placeholder="pilih unit" required>                                    
                                         <option>== Tujuan Unit ==</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -180,7 +178,7 @@ unset($__errorArgs, $__bag); ?>
                         <div class="mb-3">
                             <div class="col-md-12">
                                 
-                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b></label>
+                                <label for="post_id"><b>Tujuan Direksi / Karyawan</b><b style="color: red">*</b></label>
                                 <select class="form-control single-select-field" name="tujuan_disposisi" id="direksi_tujuan" data-placeholder="pilih unit" required>
                                     <option>---Pilih Direksi / Karyawan---</option>
                                     
@@ -203,7 +201,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="mb-3">
                             <div class="col-md-12">
-                                <label for="post_id"><b>Isi Disposisi / Eskalasi</b></label>
+                                <label for="post_id"><b>Isi Disposisi / Eskalasi</b><b style="color: red">*</b></label>
                                 
                                 <textarea type="text" name="isi_disposisi" class="form-control disposisi-desc" placeholder="Masukkan isi Disposisi / Eskalasi.." required style="height: 100px; width:770px;"></textarea>
                             </div>
@@ -486,7 +484,6 @@ unset($__errorArgs, $__bag); ?>
             $('#asal_unit').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'force-dropdown-to-bottom',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -494,7 +491,6 @@ unset($__errorArgs, $__bag); ?>
             $('#asal_direksi_karyawan').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'force-dropdown-to-bottom',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -502,7 +498,6 @@ unset($__errorArgs, $__bag); ?>
             $('#tujuan_disposisi').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'dropdown-static',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -510,7 +505,6 @@ unset($__errorArgs, $__bag); ?>
             $('#direksi_tujuan').select2({
                 dropdownParent: $('#createModal .modal-body'),
                 dropdownAutoWidth: true,
-                dropdownCssClass: 'dropdown-static',
                 dropdownPosition: 'below',
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',

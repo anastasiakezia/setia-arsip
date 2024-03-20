@@ -38,7 +38,7 @@ Tambah Laporan Dinas Luar
             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <form action="{{ route('letterout.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('dinasLuar.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row gx-4">
                 <div class="col-lg-12">
@@ -59,14 +59,14 @@ Tambah Laporan Dinas Luar
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="letterout_date" class="col-sm-3 col-form-label">Tanggal Laporan <b style="color: red">*</b></label>
+                                <label for="tanggal_laporan" class="col-sm-3 col-form-label">Tanggal Laporan <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <input type="date" id="todayDate" class="form-control @error('letterout_date') is-invalid @enderror" value="{{ old('letterout_date') }}" name="letterout_date" required>
+                                    <input type="date" id="todayDate" class="form-control @error('tanggal_laporan') is-invalid @enderror" value="{{ old('tanggal_laporan') }}" name="tanggal_laporan" required>
                                     <script>
                                         document.getElementById("todayDate").valueAsDate = new Date();
                                     </script>
                                 </div>
-                                @error('letterout_date')
+                                @error('tanggal_laporan')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -75,7 +75,7 @@ Tambah Laporan Dinas Luar
                             <div class="mb-3 row">
                                 <label for="unit_tujuan" class="col-sm-3 col-form-label">Unit<b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="unit_sender_internal" id="unit_id" class="form-control" required>
+                                    <select name="unit_sender_internal" id="unit_id" class="form-control  single-select-field" required>
                                         <option value="">Pilih Unit...</option>
                                         @foreach ($departments as $department)
                                         {{-- <option value="{{ $department->id }}" {{ (old('unit_tujuan') == $department->id)? 'selected':''; }}>{{ $department->name }}</option> --}}
@@ -87,7 +87,7 @@ Tambah Laporan Dinas Luar
                             <div class="mb-3 row">
                                 <label for="karyawan_tujuan" class="col-sm-3 col-form-label">Nama Direksi / Karyawan <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <select name="employees_id_destination" id="kepada" class="form-control" required>
+                                    <select name="employees_id_destination" id="kepada" class="form-control single-select-field" required>
                                         <option selected disabled>..Nama Direksi / Karyawan...</option>
                                     </select>
                                 </div>
@@ -98,36 +98,36 @@ Tambah Laporan Dinas Luar
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label">Surat Tugas <b style="color: red">*</b></label>
+                                <label for="surat_tugas" class="col-sm-3 col-form-label">Surat Tugas <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control @error('letter_file') is-invalid @enderror" value="{{ old('letter_file') }}" name="letter_file" required>
-                                    <div id="letter_file" class="form-text">Ekstensi .pdf</div>
+                                    <input type="file" class="form-control @error('surat_tugas') is-invalid @enderror" value="{{ old('surat_tugas') }}" name="surat_tugas" required>
+                                    <div id="surat_tugas" class="form-text">Ekstensi .pdf</div>
                                 </div>
-                                @error('letter_file')
+                                @error('surat_tugas')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label" style="font">Laporan <br> Dinas Luar <b style="color: red">*</b></label>
+                                <label for="laporan_dinas_luar" class="col-sm-3 col-form-label" style="font">Laporan <br> Dinas Luar <b style="color: red">*</b></label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control @error('letter_file') is-invalid @enderror" value="{{ old('letter_file') }}" name="letter_file" required>
-                                    <div id="letter_file" class="form-text">Ekstensi .pdf</div>
+                                    <input type="file" class="form-control @error('laporan_dinas_luar') is-invalid @enderror" value="{{ old('laporan_dinas_luar') }}" name="laporan_dinas_luar" required>
+                                    <div id="laporan_dinas_luar" class="form-text">Ekstensi .pdf</div>
                                 </div>
-                                @error('letter_file')
+                                @error('laporan_dinas_luar')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
                                 @enderror
                             </div>
                             <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain</label>
+                                <label for="dokumen_lain" class="col-sm-3 col-form-label">Dokumen <br> Lain-lain</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control @error('letter_file') is-invalid @enderror" value="{{ old('letter_file') }}" name="letter_file" required>
-                                    <div id="letter_file" class="form-text">Ekstensi .pdf</div>
+                                    <input type="file" class="form-control @error('dokumen_lain') is-invalid @enderror" value="{{ old('dokumen_lain') }}" name="dokumen_lain" required>
+                                    <div id="dokumen_lain" class="form-text">Ekstensi .pdf</div>
                                 </div>
-                                @error('letter_file')
+                                @error('dokumen_lain')
                                 <div class="invalid-feedback">
                                     {{ $message; }}
                                 </div>
@@ -149,17 +149,17 @@ Tambah Laporan Dinas Luar
 @endsection
 
 @push('addon-style')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 @endpush
 
 @push('addon-script')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(".selectx").select2({
-        theme: "bootstrap-5"
-    });
 
+<script>
     $(document).ready(function(){
         $('#unit_id').change(function() {
             var id = $(this).val();
@@ -182,6 +182,10 @@ Tambah Laporan Dinas Luar
                         }
                     }
             });
+        });
+        $('.single-select-field').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
         });
     });
 </script>
